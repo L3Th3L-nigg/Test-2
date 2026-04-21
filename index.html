@@ -1,630 +1,682 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Playverse</title>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
-  <style>
-    :root {
-      --bg: #f5f2ec;
-      --ink: #111111;
-      --accent: #ff4d00;
-      --muted: #888;
-      --card: #ffffff;
-      --border: #e0ddd7;
-      --pill-bg: #ede9e1;
-    }
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Playverse</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --bg: #0a0a0a;
+  --bg2: #141414;
+  --bg3: #1c1c1c;
+  --border: #2a2a2a;
+  --border2: #333;
+  --text: #e5e5e5;
+  --muted: #888;
+  --muted2: #555;
+  --green: #22c55e;
+  --green-dim: rgba(34,197,94,0.12);
+  --blue: #3b82f6;
+  --blue-dim: rgba(59,130,246,0.12);
+  --yellow: #eab308;
+  --yellow-dim: rgba(234,179,8,0.1);
+  --lightblue: #7dd3fc;
+  --lightblue-dim: rgba(125,211,252,0.1);
+  --red: #ef4444;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  font-family:'DM Sans',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+.app{width:100%;max-width:420px;}
+.screen{display:none;animation:up 0.35s cubic-bezier(0.22,1,0.36,1) both;}
+.screen.active{display:block;}
+@keyframes up{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:none;}}
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+/* TYPE */
+.eyebrow{font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;}
+h1{font-family:'Syne',sans-serif;font-size:clamp(38px,10vw,56px);font-weight:800;line-height:1;letter-spacing:-1.5px;margin-bottom:16px;}
+h2{font-family:'Syne',sans-serif;font-size:26px;font-weight:700;letter-spacing:-0.5px;margin-bottom:8px;}
+.sub{font-size:15px;color:var(--muted);line-height:1.6;font-weight:300;}
 
-    body {
-      font-family: 'DM Sans', sans-serif;
-      background: var(--bg);
-      color: var(--ink);
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
-    }
+/* INPUTS */
+.field{margin-bottom:14px;}
+.field label{display:block;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:7px;}
+.field input,.field select{
+  width:100%;background:var(--bg2);border:1px solid var(--border);
+  border-radius:10px;padding:13px 16px;font-size:15px;
+  font-family:'DM Sans',sans-serif;color:var(--text);outline:none;
+  transition:border-color 0.2s;appearance:none;-webkit-appearance:none;
+}
+.field input:focus,.field select:focus{border-color:var(--blue);}
+.field input::placeholder{color:var(--muted2);}
 
-    .app {
-      width: 100%;
-      max-width: 480px;
-    }
+/* BUTTONS */
+.btn{width:100%;padding:15px;border:none;border-radius:10px;font-family:'Syne',sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:all 0.2s;}
+.btn:active{transform:scale(0.98);}
+.btn-primary{background:var(--text);color:var(--bg);}
+.btn-primary:hover{background:#fff;}
+.btn-outline{background:transparent;color:var(--text);border:1px solid var(--border2);}
+.btn-outline:hover{border-color:var(--text);}
+.btn-green{background:var(--green);color:#000;}
+.btn-green:hover{background:#16a34a;}
+.btn-sm{padding:9px 16px;border-radius:8px;border:none;font-family:'Syne',sans-serif;font-size:12px;font-weight:700;cursor:pointer;transition:all 0.2s;width:auto;}
+.btn-sm:active{transform:scale(0.97);}
+.back{display:flex;align-items:center;gap:6px;background:none;border:none;color:var(--muted);font-size:13px;cursor:pointer;padding:0;margin-bottom:28px;font-family:'DM Sans',sans-serif;transition:color 0.2s;}
+.back:hover{color:var(--text);}
 
-    /* SCREENS */
-    .screen {
-      display: none;
-      animation: slideIn 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
-    }
-    .screen.active { display: block; }
+/* CHIPS */
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 24px;}
+.chip{padding:8px 16px;border-radius:100px;border:1px solid var(--border2);background:transparent;font-size:13px;color:var(--muted);cursor:pointer;transition:all 0.15s;font-family:'DM Sans',sans-serif;}
+.chip:hover{border-color:var(--text);color:var(--text);}
+.chip.on{background:var(--text);border-color:var(--text);color:var(--bg);font-weight:500;}
 
-    @keyframes slideIn {
-      from { opacity: 0; transform: translateY(24px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
+/* DIVIDER */
+.or{display:flex;align-items:center;gap:10px;margin:18px 0;}
+.or::before,.or::after{content:'';flex:1;height:1px;background:var(--border);}
+.or span{font-size:12px;color:var(--muted);}
 
-    /* PROGRESS BAR */
-    .progress-bar {
-      display: flex;
-      gap: 6px;
-      margin-bottom: 48px;
-    }
-    .progress-bar span {
-      height: 3px;
-      flex: 1;
-      background: var(--border);
-      border-radius: 2px;
-      transition: background 0.3s;
-    }
-    .progress-bar span.done { background: var(--ink); }
-    .progress-bar span.active { background: var(--accent); }
+/* DOTS */
+.dots{display:flex;gap:6px;margin-bottom:36px;}
+.dot{width:20px;height:3px;border-radius:2px;background:var(--border2);transition:all 0.3s;}
+.dot.on{background:var(--text);width:32px;}
+.dot.done{background:var(--muted2);}
 
-    /* LABEL */
-    .label {
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 12px;
-    }
+/* OTP */
+.otp-row{display:flex;gap:10px;margin:20px 0;}
+.otp-row input{flex:1;text-align:center;font-size:22px;font-family:'Syne',sans-serif;font-weight:700;padding:16px 0;background:var(--bg2);border:1px solid var(--border);border-radius:10px;color:var(--text);outline:none;transition:border-color 0.2s;}
+.otp-row input:focus{border-color:var(--blue);}
 
-    /* BIG HEADING */
-    h1 {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(52px, 12vw, 80px);
-      line-height: 0.95;
-      letter-spacing: -1px;
-      margin-bottom: 20px;
-    }
-    h1 .accent { color: var(--accent); }
+/* AGE */
+.age-big{font-family:'Syne',sans-serif;font-size:80px;font-weight:800;line-height:1;letter-spacing:-3px;margin-bottom:6px;}
+.age-big span{color:var(--green);}
+input[type=range]{-webkit-appearance:none;width:100%;height:3px;background:var(--border2);border-radius:2px;outline:none;margin:12px 0 32px;}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:var(--text);cursor:pointer;}
 
-    /* SUBTEXT */
-    .sub {
-      font-size: 16px;
-      color: var(--muted);
-      line-height: 1.6;
-      margin-bottom: 40px;
-      font-weight: 300;
-    }
+/* LIVE DOT */
+.live-dot{display:inline-block;width:7px;height:7px;background:var(--green);border-radius:50%;animation:pulse2 1.5s infinite;}
+@keyframes pulse2{0%,100%{opacity:1;}50%{opacity:0.4;}}
 
-    /* INPUT */
-    .field { margin-bottom: 20px; }
-    .field label {
-      display: block;
-      font-size: 12px;
-      font-weight: 500;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 8px;
-    }
-    .field input, .field select {
-      width: 100%;
-      background: var(--card);
-      border: 1.5px solid var(--border);
-      border-radius: 12px;
-      padding: 14px 16px;
-      font-size: 16px;
-      font-family: 'DM Sans', sans-serif;
-      color: var(--ink);
-      outline: none;
-      transition: border-color 0.2s;
-      appearance: none;
-      -webkit-appearance: none;
-    }
-    .field input:focus, .field select:focus {
-      border-color: var(--ink);
-    }
-    .field input::placeholder { color: #bbb; }
+/* CARDS */
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:16px 18px;margin-bottom:10px;}
+.card-row{display:flex;align-items:center;justify-content:space-between;}
+.badge{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:100px;font-size:11px;font-weight:500;}
+.badge-green{background:var(--green-dim);color:var(--green);}
+.badge-blue{background:var(--blue-dim);color:var(--blue);}
+.badge-yellow{background:var(--yellow-dim);color:var(--yellow);}
+.badge-lightblue{background:var(--lightblue-dim);color:var(--lightblue);}
 
-    /* PILL SELECTOR */
-    .pills {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 40px;
-    }
-    .pill {
-      padding: 10px 18px;
-      border-radius: 100px;
-      border: 1.5px solid var(--border);
-      background: var(--card);
-      font-size: 14px;
-      font-weight: 400;
-      cursor: pointer;
-      transition: all 0.15s;
-      user-select: none;
-    }
-    .pill:hover { border-color: var(--ink); }
-    .pill.selected {
-      background: var(--ink);
-      border-color: var(--ink);
-      color: white;
-    }
-    .pill.selected.accent-pill {
-      background: var(--accent);
-      border-color: var(--accent);
-    }
+/* NAV */
+.nav-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px;}
+.nav-logo{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;letter-spacing:-0.5px;}
+.nav-avatar{width:34px;height:34px;border-radius:50%;background:var(--bg3);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:16px;cursor:pointer;}
 
-    /* AGE SLIDER */
-    .age-display {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 72px;
-      line-height: 1;
-      margin-bottom: 8px;
-    }
-    .age-display span { color: var(--accent); }
+/* STATS */
+.stats-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:20px;}
+.stat-box{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:14px;text-align:center;}
+.stat-num{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;margin-bottom:2px;}
+.stat-lbl{font-size:11px;color:var(--muted);}
 
-    input[type="range"] {
-      -webkit-appearance: none;
-      width: 100%;
-      height: 4px;
-      background: var(--border);
-      border-radius: 2px;
-      outline: none;
-      margin-bottom: 40px;
-    }
-    input[type="range"]::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      width: 22px;
-      height: 22px;
-      border-radius: 50%;
-      background: var(--ink);
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-    input[type="range"]::-webkit-slider-thumb:hover { background: var(--accent); }
+/* GAME CARD */
+.game-card{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:16px 18px;margin-bottom:10px;cursor:pointer;transition:border-color 0.2s,background 0.2s;}
+.game-card:hover{border-color:var(--border2);background:var(--bg3);}
+.gc-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px;}
+.gc-sport{font-family:'Syne',sans-serif;font-size:17px;font-weight:700;}
+.gc-meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px;}
+.gc-tag{font-size:12px;color:var(--muted);}
+.player-pip{width:26px;height:26px;border-radius:50%;background:var(--bg3);border:2px solid var(--bg2);display:flex;align-items:center;justify-content:center;font-size:12px;margin-right:-6px;}
 
-    /* COLOR THEME PICKER */
-    .themes {
-      display: flex;
-      gap: 12px;
-      margin-bottom: 40px;
-    }
-    .theme-dot {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      cursor: pointer;
-      border: 3px solid transparent;
-      transition: border-color 0.2s, transform 0.15s;
-      position: relative;
-    }
-    .theme-dot:hover { transform: scale(1.1); }
-    .theme-dot.selected { border-color: var(--ink); }
-    .theme-dot::after {
-      content: '✓';
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 16px;
-      color: white;
-      opacity: 0;
-      transition: opacity 0.2s;
-    }
-    .theme-dot.selected::after { opacity: 1; }
+/* SECTION LABEL */
+.sec-label{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;}
+.sec-label a{color:var(--blue);font-size:11px;cursor:pointer;}
 
-    /* AVATAR GRID */
-    .avatars {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
-      margin-bottom: 40px;
-    }
-    .avatar-opt {
-      aspect-ratio: 1;
-      border-radius: 16px;
-      border: 2px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 32px;
-      cursor: pointer;
-      background: var(--card);
-      transition: all 0.15s;
-    }
-    .avatar-opt:hover { border-color: var(--ink); transform: scale(1.05); }
-    .avatar-opt.selected { border-color: var(--ink); background: var(--ink); }
+/* FRIEND BAR */
+.friend-bar{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:14px 16px;display:flex;align-items:center;gap:12px;margin-bottom:20px;}
+.friend-bar .ficon{font-size:22px;}
+.friend-bar .ftext{flex:1;}
+.friend-bar .ftext strong{font-size:14px;display:block;}
+.friend-bar .ftext span{font-size:12px;color:var(--muted);}
 
-    /* BUTTONS */
-    .btn-primary {
-      width: 100%;
-      padding: 18px;
-      background: var(--ink);
-      color: white;
-      border: none;
-      border-radius: 14px;
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 20px;
-      letter-spacing: 1px;
-      cursor: pointer;
-      transition: background 0.2s, transform 0.15s;
-      margin-top: 8px;
-    }
-    .btn-primary:hover { background: var(--accent); transform: translateY(-1px); }
-    .btn-primary:active { transform: translateY(0); }
+/* SPORT GRID */
+.sport-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:20px;}
+.sport-opt{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:14px 8px;text-align:center;cursor:pointer;transition:all 0.15s;}
+.sport-opt:hover{border-color:var(--border2);}
+.sport-opt.on{background:var(--bg3);border-color:var(--text);}
+.sport-opt .s-icon{font-size:24px;margin-bottom:6px;}
+.sport-opt .s-name{font-size:12px;font-weight:500;}
 
-    .btn-back {
-      background: none;
-      border: none;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 14px;
-      color: var(--muted);
-      cursor: pointer;
-      padding: 0;
-      margin-bottom: 32px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      transition: color 0.2s;
-    }
-    .btn-back:hover { color: var(--ink); }
+/* TIME */
+.time-opts{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;}
+.time-chip{padding:9px 16px;border-radius:8px;border:1px solid var(--border);background:transparent;font-size:13px;color:var(--muted);cursor:pointer;transition:all 0.15s;font-family:'DM Sans',sans-serif;}
+.time-chip:hover{border-color:var(--text);color:var(--text);}
+.time-chip.on{background:var(--bg3);border-color:var(--text);color:var(--text);}
 
-    /* DIVIDER */
-    .divider {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin: 20px 0;
-    }
-    .divider::before, .divider::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: var(--border);
-    }
-    .divider span { font-size: 12px; color: var(--muted); }
+/* CONFIRM */
+.confirm-icon{font-size:64px;text-align:center;display:block;margin-bottom:20px;animation:pop 0.5s cubic-bezier(0.22,1,0.36,1);}
+@keyframes pop{from{transform:scale(0.5);opacity:0;}to{transform:scale(1);opacity:1;}}
 
-    /* SUMMARY CARD */
-    .summary {
-      background: var(--card);
-      border-radius: 20px;
-      padding: 24px;
-      margin-bottom: 24px;
-      border: 1.5px solid var(--border);
-    }
-    .summary-avatar {
-      font-size: 52px;
-      margin-bottom: 12px;
-      display: block;
-    }
-    .summary-name {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 36px;
-      line-height: 1;
-      margin-bottom: 4px;
-    }
-    .summary-detail {
-      font-size: 13px;
-      color: var(--muted);
-      margin-bottom: 16px;
-    }
-    .summary-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-    .summary-tag {
-      padding: 6px 14px;
-      background: var(--pill-bg);
-      border-radius: 100px;
-      font-size: 12px;
-      font-weight: 500;
-    }
+/* PROFILE */
+.profile-head{text-align:center;margin-bottom:24px;}
+.profile-av{font-size:56px;display:block;margin-bottom:10px;}
+.profile-name{font-family:'Syne',sans-serif;font-size:24px;font-weight:800;}
+.profile-handle{font-size:14px;color:var(--muted);margin-top:2px;}
+.badge-row{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:12px;}
 
-    /* WELCOME SCREEN */
-    .welcome-icon {
-      font-size: 64px;
-      display: block;
-      margin-bottom: 24px;
-      animation: bounce 1s ease infinite alternate;
-    }
-    @keyframes bounce {
-      from { transform: translateY(0); }
-      to   { transform: translateY(-10px); }
-    }
+/* NOTIF */
+.notif{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:12px 16px;display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+.notif-icon{font-size:18px;}
+.notif-text{font-size:13px;flex:1;}
+.notif-text strong{display:block;font-weight:500;}
+.notif-text span{color:var(--muted);font-size:12px;}
 
-    /* ERROR */
-    .error {
-      font-size: 13px;
-      color: var(--accent);
-      margin-top: -12px;
-      margin-bottom: 16px;
-      display: none;
-    }
-    .error.show { display: block; }
+/* VERIFIED */
+.verified{display:inline-flex;align-items:center;gap:4px;font-size:11px;color:var(--lightblue);}
 
-    /* STEP COUNTER */
-    .step-count {
-      font-size: 12px;
-      color: var(--muted);
-      margin-bottom: 6px;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-    }
-  </style>
+/* TAB BAR */
+.tab-bar{display:flex;border-top:1px solid var(--border);margin-top:24px;padding-top:14px;}
+.tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;padding:6px 0;transition:color 0.2s;color:var(--muted2);}
+.tab.on{color:var(--text);}
+.tab:hover{color:var(--muted);}
+.tab svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.8;}
+.tab span{font-size:10px;letter-spacing:0.5px;text-transform:uppercase;}
+
+/* ERR */
+.err{font-size:13px;color:var(--red);margin-top:-8px;margin-bottom:12px;display:none;}
+.err.show{display:block;}
+
+.sep{height:1px;background:var(--border);margin:18px 0;}
+</style>
 </head>
 <body>
 <div class="app">
 
-  <!-- SCREEN 0: WELCOME -->
-  <div class="screen active" id="s0">
-    <span class="welcome-icon">🏡</span>
-    <div class="label">Welcome to</div>
-    <h1>PLAY<br><span class="accent">VERSE</span></h1>
-    <p class="sub">Your neighbourhood, online. Find kids nearby, plan outdoor hangouts, and actually go outside.</p>
-    <button class="btn-primary" onclick="go(1)">LET'S SET YOU UP</button>
-    <div class="divider"><span>already have an account?</span></div>
-    <button class="btn-primary" style="background: transparent; color: var(--ink); border: 1.5px solid var(--border);" onclick="alert('Login coming soon!')">SIGN IN</button>
-  </div>
-
-  <!-- SCREEN 1: NAME + USERNAME -->
-  <div class="screen" id="s1">
-    <div class="progress-bar">
-      <span class="active"></span><span></span><span></span><span></span><span></span>
+<!-- LANDING -->
+<div class="screen active" id="s-land">
+  <div style="min-height:100vh;display:flex;flex-direction:column;justify-content:space-between;padding:48px 0 20px;">
+    <div>
+      <div class="eyebrow" style="margin-bottom:48px;">Community · Play · Connect</div>
+      <h1>PLAY<br>VERSE</h1>
+      <p class="sub" style="margin-top:16px;max-width:280px;">Your neighbourhood, online. Find who's outside. Go play.</p>
     </div>
-    <div class="step-count">Step 1 of 5</div>
-    <div class="label">The basics</div>
-    <h1>WHAT'S YOUR<br><span class="accent">NAME?</span></h1>
-    <div class="field">
-      <label>First Name</label>
-      <input type="text" id="fname" placeholder="e.g. Arjun" />
-    </div>
-    <p class="error" id="err1">Please enter your name!</p>
-    <div class="field">
-      <label>Username</label>
-      <input type="text" id="uname" placeholder="e.g. arjun_plays" />
-    </div>
-    <div class="field">
-      <label>School</label>
-      <input type="text" id="school" placeholder="e.g. DPS Chennai" />
-    </div>
-    <button class="btn-primary" onclick="step1()">NEXT →</button>
-  </div>
-
-  <!-- SCREEN 2: AGE -->
-  <div class="screen" id="s2">
-    <div class="progress-bar">
-      <span class="done"></span><span class="active"></span><span></span><span></span><span></span>
-    </div>
-    <button class="btn-back" onclick="go(1)">← Back</button>
-    <div class="step-count">Step 2 of 5</div>
-    <div class="label">How old are you?</div>
-    <h1>YOUR<br><span class="accent">AGE</span></h1>
-    <div class="age-display"><span id="age-val">10</span></div>
-    <p class="sub" style="margin-bottom: 16px;">years old</p>
-    <input type="range" id="age-slider" min="6" max="17" value="10"
-      oninput="document.getElementById('age-val').textContent = this.value" />
-    <button class="btn-primary" onclick="go(3)">NEXT →</button>
-  </div>
-
-  <!-- SCREEN 3: INTERESTS -->
-  <div class="screen" id="s3">
-    <div class="progress-bar">
-      <span class="done"></span><span class="done"></span><span class="active"></span><span></span><span></span>
-    </div>
-    <button class="btn-back" onclick="go(2)">← Back</button>
-    <div class="step-count">Step 3 of 5</div>
-    <div class="label">Pick your vibe</div>
-    <h1>WHAT DO<br>YOU <span class="accent">LOVE?</span></h1>
-    <p class="sub">Pick as many as you want.</p>
-    <div class="pills" id="interests">
-      <div class="pill" onclick="togglePill(this)">⚽ Football</div>
-      <div class="pill" onclick="togglePill(this)">🏏 Cricket</div>
-      <div class="pill" onclick="togglePill(this)">🛹 Skating</div>
-      <div class="pill" onclick="togglePill(this)">🎨 Drawing</div>
-      <div class="pill" onclick="togglePill(this)">🎮 Gaming</div>
-      <div class="pill" onclick="togglePill(this)">🚴 Cycling</div>
-      <div class="pill" onclick="togglePill(this)">🏊 Swimming</div>
-      <div class="pill" onclick="togglePill(this)">📚 Reading</div>
-      <div class="pill" onclick="togglePill(this)">🎵 Music</div>
-      <div class="pill" onclick="togglePill(this)">🎭 Acting</div>
-      <div class="pill" onclick="togglePill(this)">🐾 Pets</div>
-      <div class="pill" onclick="togglePill(this)">🌿 Nature</div>
-      <div class="pill" onclick="togglePill(this)">🍕 Food</div>
-      <div class="pill" onclick="togglePill(this)">✏️ Writing</div>
-      <div class="pill" onclick="togglePill(this)">🏀 Basketball</div>
-      <div class="pill" onclick="togglePill(this)">🎬 Movies</div>
-    </div>
-    <p class="error show" id="err3" style="display:none">Pick at least one interest!</p>
-    <button class="btn-primary" onclick="step3()">NEXT →</button>
-  </div>
-
-  <!-- SCREEN 4: AVATAR + THEME -->
-  <div class="screen" id="s4">
-    <div class="progress-bar">
-      <span class="done"></span><span class="done"></span><span class="done"></span><span class="active"></span><span></span>
-    </div>
-    <button class="btn-back" onclick="go(3)">← Back</button>
-    <div class="step-count">Step 4 of 5</div>
-    <div class="label">Make it yours</div>
-    <h1>YOUR<br><span class="accent">LOOK</span></h1>
-    <p class="sub" style="margin-bottom: 20px;">Pick an avatar.</p>
-    <div class="avatars" id="avatars">
-      <div class="avatar-opt selected" onclick="pickAvatar(this)">🧒</div>
-      <div class="avatar-opt" onclick="pickAvatar(this)">👦</div>
-      <div class="avatar-opt" onclick="pickAvatar(this)">👧</div>
-      <div class="avatar-opt" onclick="pickAvatar(this)">🧑</div>
-      <div class="avatar-opt" onclick="pickAvatar(this)">🦸</div>
-      <div class="avatar-opt" onclick="pickAvatar(this)">🧙</div>
-      <div class="avatar-opt" onclick="pickAvatar(this)">🤖</div>
-      <div class="avatar-opt" onclick="pickAvatar(this)">🐱</div>
-    </div>
-    <p class="sub" style="margin-bottom: 16px;">Pick an app theme.</p>
-    <div class="themes">
-      <div class="theme-dot selected" style="background:#111111" onclick="pickTheme(this,'#111111')" title="Classic"></div>
-      <div class="theme-dot" style="background:#ff4d00" onclick="pickTheme(this,'#ff4d00')" title="Fire"></div>
-      <div class="theme-dot" style="background:#0066ff" onclick="pickTheme(this,'#0066ff')" title="Sky"></div>
-      <div class="theme-dot" style="background:#00b050" onclick="pickTheme(this,'#00b050')" title="Grass"></div>
-      <div class="theme-dot" style="background:#9b30ff" onclick="pickTheme(this,'#9b30ff')" title="Galaxy"></div>
-      <div class="theme-dot" style="background:#e6007e" onclick="pickTheme(this,'#e6007e')" title="Pop"></div>
-    </div>
-    <button class="btn-primary" onclick="go(5)">NEXT →</button>
-  </div>
-
-  <!-- SCREEN 5: CONFIRM -->
-  <div class="screen" id="s5">
-    <div class="progress-bar">
-      <span class="done"></span><span class="done"></span><span class="done"></span><span class="done"></span><span class="active"></span>
-    </div>
-    <button class="btn-back" onclick="go(4)">← Back</button>
-    <div class="step-count">Step 5 of 5</div>
-    <div class="label">Almost there</div>
-    <h1>LOOKING<br><span class="accent">GOOD.</span></h1>
-    <div class="summary" id="summary"></div>
-    <button class="btn-primary" onclick="finish()">ENTER PLAYVERSE →</button>
-  </div>
-
-  <!-- SCREEN 6: DONE -->
-  <div class="screen" id="s6">
-    <span class="welcome-icon">🎉</span>
-    <div class="label">You're in!</div>
-    <h1>LET'S<br><span class="accent">PLAY.</span></h1>
-    <p class="sub" id="welcome-msg">Welcome! Your crew is waiting outside.</p>
-    <div style="background: var(--card); border-radius: 16px; padding: 20px; border: 1.5px solid var(--border); margin-bottom: 24px;">
-      <div style="font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); margin-bottom: 12px;">Right now in your community</div>
-      <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
-        <span style="font-size: 28px;">👦</span>
-        <div>
-          <div style="font-weight: 500; font-size: 15px;">Rohan is outside</div>
-          <div style="font-size: 12px; color: var(--muted);">Near the park · 2 mins ago</div>
-        </div>
-        <div style="margin-left: auto; width: 8px; height: 8px; background: #00b050; border-radius: 50%;"></div>
+    <div>
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:32px;">
+        <span class="live-dot"></span>
+        <span style="font-size:13px;color:var(--muted);">14 kids playing nearby right now</span>
       </div>
-      <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
-        <span style="font-size: 28px;">👧</span>
-        <div>
-          <div style="font-weight: 500; font-size: 15px;">Priya is outside</div>
-          <div style="font-size: 12px; color: var(--muted);">Near Block C · 5 mins ago</div>
-        </div>
-        <div style="margin-left: auto; width: 8px; height: 8px; background: #00b050; border-radius: 50%;"></div>
-      </div>
-      <div style="display: flex; align-items: center; gap: 12px;">
-        <span style="font-size: 28px;">🧒</span>
-        <div>
-          <div style="font-weight: 500; font-size: 15px;">Aadi wants to play cricket</div>
-          <div style="font-size: 12px; color: var(--muted);">Ground floor · Now</div>
-        </div>
-        <div style="margin-left: auto; width: 8px; height: 8px; background: #ff4d00; border-radius: 50%;"></div>
+      <button class="btn btn-primary" style="margin-bottom:12px;" onclick="go('s-signup-name')">Create account</button>
+      <button class="btn btn-outline" onclick="go('s-login')">Sign in</button>
+    </div>
+  </div>
+</div>
+
+<!-- LOGIN -->
+<div class="screen" id="s-login">
+  <div style="padding-top:48px;">
+    <button class="back" onclick="go('s-land')">← Back</button>
+    <div class="eyebrow">Welcome back</div>
+    <h1 style="font-size:44px;">SIGN<br>IN</h1>
+    <div style="margin-top:28px;">
+      <div class="field"><label>Username</label><input id="li-user" type="text" placeholder="your_username"/></div>
+      <div class="field"><label>Password</label><input id="li-pass" type="password" placeholder="••••••••"/></div>
+      <p class="err" id="li-err">Wrong credentials. Try: demo / 1234</p>
+      <button class="btn btn-primary" style="margin-top:8px;" onclick="doLogin()">Sign in</button>
+      <p style="text-align:center;font-size:13px;color:var(--muted);margin-top:16px;">No account? <span style="color:var(--blue);cursor:pointer;" onclick="go('s-signup-name')">Sign up</span></p>
+    </div>
+  </div>
+</div>
+
+<!-- SIGNUP: NAME -->
+<div class="screen" id="s-signup-name">
+  <div style="padding-top:40px;">
+    <button class="back" onclick="go('s-land')">← Back</button>
+    <div class="dots"><div class="dot on"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+    <div class="eyebrow">Step 1 of 4</div>
+    <h1 style="font-size:44px;">WHAT'S<br>YOUR NAME?</h1>
+    <div style="margin-top:24px;">
+      <div class="field"><label>First name</label><input id="su-name" type="text" placeholder="e.g. Arjun"/></div>
+      <div class="field"><label>Username</label><input id="su-user" type="text" placeholder="e.g. arjun_plays"/></div>
+      <div class="field"><label>School</label><input id="su-school" type="text" placeholder="e.g. DPS Chennai"/></div>
+      <p class="err" id="su-err1">Please enter your name.</p>
+      <button class="btn btn-primary" style="margin-top:8px;" onclick="suStep1()">Continue</button>
+    </div>
+  </div>
+</div>
+
+<!-- SIGNUP: AGE -->
+<div class="screen" id="s-signup-age">
+  <div style="padding-top:40px;">
+    <button class="back" onclick="go('s-signup-name')">← Back</button>
+    <div class="dots"><div class="dot done"></div><div class="dot on"></div><div class="dot"></div><div class="dot"></div></div>
+    <div class="eyebrow">Step 2 of 4</div>
+    <h1 style="font-size:44px;">HOW OLD<br>ARE YOU?</h1>
+    <div style="margin-top:28px;">
+      <div class="age-big"><span id="age-num">10</span></div>
+      <div style="font-size:13px;color:var(--muted);margin-bottom:4px;">years old</div>
+      <input type="range" id="age-slider" min="6" max="17" value="10" oninput="document.getElementById('age-num').textContent=this.value"/>
+      <button class="btn btn-primary" onclick="go('s-signup-interests')">Continue</button>
+    </div>
+  </div>
+</div>
+
+<!-- SIGNUP: INTERESTS -->
+<div class="screen" id="s-signup-interests">
+  <div style="padding-top:40px;">
+    <button class="back" onclick="go('s-signup-age')">← Back</button>
+    <div class="dots"><div class="dot done"></div><div class="dot done"></div><div class="dot on"></div><div class="dot"></div></div>
+    <div class="eyebrow">Step 3 of 4</div>
+    <h1 style="font-size:44px;">WHAT DO<br>YOU PLAY?</h1>
+    <p class="sub" style="margin-top:8px;">Pick everything you're into.</p>
+    <div class="chips" id="interest-chips">
+      <div class="chip" onclick="toggleChip(this)">⚽ Football</div>
+      <div class="chip" onclick="toggleChip(this)">🏏 Cricket</div>
+      <div class="chip" onclick="toggleChip(this)">🏀 Basketball</div>
+      <div class="chip" onclick="toggleChip(this)">🛹 Skating</div>
+      <div class="chip" onclick="toggleChip(this)">🚴 Cycling</div>
+      <div class="chip" onclick="toggleChip(this)">🏊 Swimming</div>
+      <div class="chip" onclick="toggleChip(this)">🎨 Drawing</div>
+      <div class="chip" onclick="toggleChip(this)">🎮 Gaming</div>
+      <div class="chip" onclick="toggleChip(this)">📚 Reading</div>
+      <div class="chip" onclick="toggleChip(this)">🎵 Music</div>
+      <div class="chip" onclick="toggleChip(this)">🐾 Pets</div>
+      <div class="chip" onclick="toggleChip(this)">🌿 Nature</div>
+    </div>
+    <p class="err" id="su-err3">Pick at least one.</p>
+    <button class="btn btn-primary" onclick="suStep3()">Continue</button>
+  </div>
+</div>
+
+<!-- SIGNUP: PARENT VERIFY -->
+<div class="screen" id="s-signup-parent">
+  <div style="padding-top:40px;">
+    <button class="back" onclick="go('s-signup-interests')">← Back</button>
+    <div class="dots"><div class="dot done"></div><div class="dot done"></div><div class="dot done"></div><div class="dot on"></div></div>
+    <div class="eyebrow">Step 4 of 4</div>
+    <h1 style="font-size:44px;">PARENT<br>VERIFY</h1>
+    <p class="sub" style="margin-top:8px;margin-bottom:20px;">A 4-digit code goes to your parent's phone. They approve, you're in.</p>
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:14px 16px;margin-bottom:20px;display:flex;align-items:center;gap:10px;">
+      <span style="font-size:18px;">🔒</span>
+      <div><div style="font-size:13px;font-weight:500;">Safety first</div><div style="font-size:12px;color:var(--muted);">All accounts need parent approval.</div></div>
+    </div>
+    <div class="field"><label>Parent's phone</label><input id="parent-phone" type="tel" placeholder="+91 98765 43210"/></div>
+    <button class="btn btn-outline" style="margin-bottom:16px;" onclick="sendOTP()">Send OTP</button>
+    <div class="otp-row" id="otp-row" style="display:none;">
+      <input type="text" maxlength="1" oninput="otpMove(this,0)"/>
+      <input type="text" maxlength="1" oninput="otpMove(this,1)"/>
+      <input type="text" maxlength="1" oninput="otpMove(this,2)"/>
+      <input type="text" maxlength="1" oninput="otpMove(this,3)"/>
+    </div>
+    <p id="otp-hint" style="font-size:12px;color:var(--muted);margin-bottom:16px;display:none;">Demo: use code <strong style="color:var(--green);">2580</strong></p>
+    <button class="btn btn-primary" id="otp-btn" style="display:none;" onclick="confirmOTP()">Verify & Enter</button>
+    <p class="err" id="su-err4">Incorrect code. Try again.</p>
+  </div>
+</div>
+
+<!-- HOME -->
+<div class="screen" id="s-home">
+  <div>
+    <div class="nav-bar">
+      <div class="nav-logo">PLAYVERSE</div>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span style="display:flex;align-items:center;gap:5px;font-size:12px;color:var(--green);"><span class="live-dot"></span>3 near you</span>
+        <div class="nav-avatar" onclick="showTab('profile')" id="nav-av">🧒</div>
       </div>
     </div>
-    <button class="btn-primary" onclick="alert('Full app coming soon! 🚀')">GO OUTSIDE NOW</button>
+    <div style="margin-bottom:24px;">
+      <div style="font-size:13px;color:var(--muted);margin-bottom:4px;">Good afternoon,</div>
+      <h2 id="home-name" style="font-size:28px;margin-bottom:0;">Player 👋</h2>
+    </div>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-num" style="color:var(--green);" id="h-streak">5</div><div class="stat-lbl">Streak</div></div>
+      <div class="stat-box"><div class="stat-num" id="h-games">12</div><div class="stat-lbl">Games</div></div>
+      <div class="stat-box"><div class="stat-num" style="color:var(--yellow);">3</div><div class="stat-lbl">Badges</div></div>
+    </div>
+    <div class="friend-bar">
+      <div class="ficon">👟</div>
+      <div class="ftext">
+        <strong>Rohan is playing Cricket now</strong>
+        <span>Near Block C · 4 players · <span class="live-dot" style="width:5px;height:5px;"></span> Live</span>
+      </div>
+      <button class="btn-sm btn-green" onclick="joinGame('Cricket','Block C Ground','Rohan')">Join</button>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:24px;">
+      <button class="btn btn-primary" style="border-radius:12px;font-size:14px;padding:18px 12px;" onclick="showTab('discover')">Find a game</button>
+      <button class="btn btn-outline" style="border-radius:12px;font-size:14px;padding:18px 12px;" onclick="showTab('create')">Create game</button>
+    </div>
+    <div class="sec-label">Nearby games <a onclick="showTab('discover')">See all →</a></div>
+    <div class="game-card" onclick="joinGame('Football','Main Ground','Aryan')">
+      <div class="gc-top">
+        <div><div class="gc-sport">⚽ Football</div><div class="gc-meta"><span class="gc-tag">📍 Main Ground</span><span class="gc-tag">🕐 4:30 PM</span></div></div>
+        <span class="badge badge-green"><span class="live-dot" style="width:5px;height:5px;"></span> Live</span>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:space-between;">
+        <div style="display:flex;align-items:center;gap:6px;"><div style="display:flex;"><div class="player-pip">👦</div><div class="player-pip">👧</div><div class="player-pip">🧒</div></div><span style="font-size:12px;color:var(--muted);">5/10 players</span></div>
+        <span class="verified">🛡 Verified</span>
+      </div>
+    </div>
+    <div class="game-card" onclick="joinGame('Basketball','Court A','Priya')">
+      <div class="gc-top">
+        <div><div class="gc-sport">🏀 Basketball</div><div class="gc-meta"><span class="gc-tag">📍 Court A</span><span class="gc-tag">🕐 5:00 PM</span></div></div>
+        <span class="badge badge-blue">Starting soon</span>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:space-between;">
+        <div style="display:flex;align-items:center;gap:6px;"><div style="display:flex;"><div class="player-pip">🧑</div><div class="player-pip">👦</div></div><span style="font-size:12px;color:var(--muted);">2/6 players</span></div>
+        <span class="verified">🛡 Verified</span>
+      </div>
+    </div>
+    <div class="tab-bar">
+      <div class="tab on" id="t1-home" onclick="showTab('home')"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>Home</span></div>
+      <div class="tab" id="t1-disc" onclick="showTab('discover')"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><span>Discover</span></div>
+      <div class="tab" id="t1-cre" onclick="showTab('create')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg><span>Create</span></div>
+      <div class="tab" id="t1-prof" onclick="showTab('profile')"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>Profile</span></div>
+    </div>
   </div>
+</div>
 
+<!-- DISCOVER -->
+<div class="screen" id="s-discover">
+  <div>
+    <div class="nav-bar"><h2 style="margin-bottom:0;">Discover</h2><span style="display:flex;align-items:center;gap:5px;font-size:12px;color:var(--green);"><span class="live-dot"></span>3 active</span></div>
+    <div class="field" style="margin-bottom:16px;"><input type="text" placeholder="Search sport or location…"/></div>
+    <div class="chips" style="margin-bottom:16px;">
+      <div class="chip on" onclick="filterSport(this)">All</div>
+      <div class="chip" onclick="filterSport(this)">⚽ Football</div>
+      <div class="chip" onclick="filterSport(this)">🏏 Cricket</div>
+      <div class="chip" onclick="filterSport(this)">🏀 Basketball</div>
+    </div>
+    <div class="sec-label">3 games near you</div>
+    <div class="game-card" onclick="joinGame('Cricket','Block C Ground','Rohan')">
+      <div class="gc-top"><div><div class="gc-sport">🏏 Cricket</div><div class="gc-meta"><span class="gc-tag">📍 Block C Ground</span><span class="gc-tag">🕐 Now</span></div></div><span class="badge badge-green"><span class="live-dot" style="width:5px;height:5px;"></span> Live</span></div>
+      <div style="display:flex;align-items:center;justify-content:space-between;"><div style="display:flex;align-items:center;gap:6px;"><div style="display:flex;"><div class="player-pip">👦</div><div class="player-pip">👧</div><div class="player-pip">🧒</div><div class="player-pip">🧑</div></div><span style="font-size:12px;color:var(--muted);">4/11 players</span></div><span class="verified">🛡 Verified</span></div>
+    </div>
+    <div class="game-card" onclick="joinGame('Football','Main Ground','Aryan')">
+      <div class="gc-top"><div><div class="gc-sport">⚽ Football</div><div class="gc-meta"><span class="gc-tag">📍 Main Ground</span><span class="gc-tag">🕐 4:30 PM</span></div></div><span class="badge badge-green"><span class="live-dot" style="width:5px;height:5px;"></span> Live</span></div>
+      <div style="display:flex;align-items:center;justify-content:space-between;"><div style="display:flex;align-items:center;gap:6px;"><div style="display:flex;"><div class="player-pip">👦</div><div class="player-pip">👧</div><div class="player-pip">🧒</div></div><span style="font-size:12px;color:var(--muted);">5/10 players</span></div><span class="verified">🛡 Verified</span></div>
+    </div>
+    <div class="game-card" onclick="joinGame('Basketball','Court A','Priya')">
+      <div class="gc-top"><div><div class="gc-sport">🏀 Basketball</div><div class="gc-meta"><span class="gc-tag">📍 Court A</span><span class="gc-tag">🕐 5:00 PM</span></div></div><span class="badge badge-blue">Starting soon</span></div>
+      <div style="display:flex;align-items:center;justify-content:space-between;"><div style="display:flex;align-items:center;gap:6px;"><div style="display:flex;"><div class="player-pip">🧑</div><div class="player-pip">👦</div></div><span style="font-size:12px;color:var(--muted);">2/6 players</span></div><span class="verified">🛡 Verified</span></div>
+    </div>
+    <div class="tab-bar">
+      <div class="tab" id="t2-home" onclick="showTab('home')"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>Home</span></div>
+      <div class="tab on" id="t2-disc" onclick="showTab('discover')"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><span>Discover</span></div>
+      <div class="tab" id="t2-cre" onclick="showTab('create')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg><span>Create</span></div>
+      <div class="tab" id="t2-prof" onclick="showTab('profile')"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>Profile</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- CREATE -->
+<div class="screen" id="s-create">
+  <div>
+    <div class="nav-bar"><h2 style="margin-bottom:0;">New Game</h2></div>
+    <div class="eyebrow" style="margin-bottom:10px;">Pick a sport</div>
+    <div class="sport-grid">
+      <div class="sport-opt on" onclick="pickSport(this,'Football')"><div class="s-icon">⚽</div><div class="s-name">Football</div></div>
+      <div class="sport-opt" onclick="pickSport(this,'Cricket')"><div class="s-icon">🏏</div><div class="s-name">Cricket</div></div>
+      <div class="sport-opt" onclick="pickSport(this,'Basketball')"><div class="s-icon">🏀</div><div class="s-name">Basketball</div></div>
+      <div class="sport-opt" onclick="pickSport(this,'Cycling')"><div class="s-icon">🚴</div><div class="s-name">Cycling</div></div>
+      <div class="sport-opt" onclick="pickSport(this,'Skating')"><div class="s-icon">🛹</div><div class="s-name">Skating</div></div>
+      <div class="sport-opt" onclick="pickSport(this,'Swimming')"><div class="s-icon">🏊</div><div class="s-name">Swimming</div></div>
+    </div>
+    <div class="sep"></div>
+    <div class="eyebrow" style="margin-bottom:10px;">When?</div>
+    <div class="time-opts">
+      <div class="time-chip on" onclick="pickTime(this)">Right now</div>
+      <div class="time-chip" onclick="pickTime(this)">In 30 min</div>
+      <div class="time-chip" onclick="pickTime(this)">4:00 PM</div>
+      <div class="time-chip" onclick="pickTime(this)">5:00 PM</div>
+      <div class="time-chip" onclick="pickTime(this)">6:00 PM</div>
+    </div>
+    <div class="sep"></div>
+    <div class="field"><label>Location</label><input id="create-loc" type="text" placeholder="e.g. Main Ground, Block C"/></div>
+    <div class="field"><label>Max players</label>
+      <select style="width:100%;background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:13px 16px;font-size:15px;font-family:'DM Sans',sans-serif;color:var(--text);outline:none;">
+        <option>4 players</option><option>6 players</option><option selected>10 players</option><option>11 players</option><option>Any</option>
+      </select>
+    </div>
+    <button class="btn btn-green" style="margin-top:8px;" onclick="publishGame()">Publish Game →</button>
+    <div class="tab-bar">
+      <div class="tab" id="t3-home" onclick="showTab('home')"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>Home</span></div>
+      <div class="tab" id="t3-disc" onclick="showTab('discover')"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><span>Discover</span></div>
+      <div class="tab on" id="t3-cre" onclick="showTab('create')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg><span>Create</span></div>
+      <div class="tab" id="t3-prof" onclick="showTab('profile')"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>Profile</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- JOINED CONFIRM -->
+<div class="screen" id="s-joined">
+  <div style="min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:20px 0;">
+    <span class="confirm-icon" id="joined-icon">🎉</span>
+    <div class="eyebrow" style="text-align:center;">You're in!</div>
+    <h1 style="text-align:center;font-size:44px;">GO<br>PLAY.</h1>
+    <p class="sub" style="text-align:center;margin:12px 0 28px;" id="joined-sub">Head to the ground. Your crew is waiting.</p>
+    <div class="card" id="joined-card" style="margin-bottom:20px;"></div>
+    <button class="btn btn-primary" style="margin-bottom:12px;" onclick="goOutside()">I'm heading out 🏃</button>
+    <button class="btn btn-outline" onclick="showTab('home')">Back to home</button>
+  </div>
+</div>
+
+<!-- PROFILE -->
+<div class="screen" id="s-profile">
+  <div>
+    <div class="nav-bar"><h2 style="margin-bottom:0;">Profile</h2><button class="btn-sm btn-outline" onclick="logout()" style="font-size:12px;padding:7px 14px;border:1px solid var(--border2);color:var(--text);background:transparent;">Sign out</button></div>
+    <div class="profile-head">
+      <span class="profile-av" id="prof-av">🧒</span>
+      <div class="profile-name" id="prof-name">Arjun</div>
+      <div class="profile-handle" id="prof-handle">@arjun_plays · DPS Chennai</div>
+      <div class="badge-row">
+        <span class="badge badge-lightblue">🛡 Parent verified</span>
+        <span class="badge badge-green" id="prof-streak-badge">🔥 5 day streak</span>
+        <span class="badge badge-yellow">⭐ Early member</span>
+      </div>
+    </div>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-num" id="p-games">12</div><div class="stat-lbl">Games</div></div>
+      <div class="stat-box"><div class="stat-num" style="color:var(--green);" id="p-streak">5</div><div class="stat-lbl">Streak</div></div>
+      <div class="stat-box"><div class="stat-num" style="color:var(--yellow);">3</div><div class="stat-lbl">Badges</div></div>
+    </div>
+    <div class="sec-label" style="margin-top:8px;">Interests</div>
+    <div class="chips" id="prof-interests" style="margin-bottom:20px;pointer-events:none;"></div>
+    <div class="sec-label">Recent activity</div>
+    <div class="notif"><div class="notif-icon">⚽</div><div class="notif-text"><strong>Played Football</strong><span>Yesterday · Main Ground</span></div><span class="badge badge-yellow">+10 XP</span></div>
+    <div class="notif"><div class="notif-icon">🏏</div><div class="notif-text"><strong>Played Cricket</strong><span>2 days ago · Block C</span></div><span class="badge badge-yellow">+10 XP</span></div>
+    <div class="notif"><div class="notif-icon">🏅</div><div class="notif-text"><strong>Badge: First Game</strong><span>3 days ago</span></div><span class="badge badge-green">New</span></div>
+    <div class="tab-bar">
+      <div class="tab" id="t4-home" onclick="showTab('home')"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>Home</span></div>
+      <div class="tab" id="t4-disc" onclick="showTab('discover')"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><span>Discover</span></div>
+      <div class="tab" id="t4-cre" onclick="showTab('create')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg><span>Create</span></div>
+      <div class="tab on" id="t4-prof" onclick="showTab('profile')"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>Profile</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- POST GAME -->
+<div class="screen" id="s-postgame">
+  <div style="min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:20px 0;">
+    <span class="confirm-icon">🏆</span>
+    <div class="eyebrow" style="text-align:center;">Session complete</div>
+    <h1 style="text-align:center;font-size:44px;">GOOD<br>GAME.</h1>
+    <p class="sub" style="text-align:center;margin:12px 0 24px;">You played outside today. That's a win.</p>
+    <div class="stats-row" style="margin-bottom:16px;">
+      <div class="stat-box"><div class="stat-num" style="color:var(--green);" id="pg-streak">6</div><div class="stat-lbl">Streak</div></div>
+      <div class="stat-box"><div class="stat-num" id="pg-games">13</div><div class="stat-lbl">Total</div></div>
+      <div class="stat-box"><div class="stat-num" style="color:var(--yellow);">+10</div><div class="stat-lbl">XP</div></div>
+    </div>
+    <div class="card" style="margin-bottom:16px;">
+      <div class="card-row" style="margin-bottom:6px;"><span style="font-size:14px;font-weight:500;">🔥 Streak extended!</span><span class="badge badge-green">Nice</span></div>
+      <div style="font-size:13px;color:var(--muted);">You're on a <strong style="color:var(--text);" id="pg-streak2">6</strong>-day streak. Keep it going tomorrow!</div>
+    </div>
+    <div class="sec-label">Play tomorrow</div>
+    <div class="game-card" onclick="joinGame('Football','Main Ground','Aryan')">
+      <div class="gc-sport">⚽ Football tomorrow · 4:30 PM</div>
+      <div class="gc-meta" style="margin-top:6px;"><span class="gc-tag">📍 Main Ground</span><span class="gc-tag">👥 3 going</span></div>
+    </div>
+    <button class="btn btn-primary" style="margin-top:16px;" onclick="showTab('home')">Back to home</button>
+  </div>
 </div>
 
 <script>
-  let currentScreen = 0;
-  let selectedAvatar = '🧒';
+const S = { screen: 's-land', user: null, streak: 5, games: 12, sport: 'Football' };
+let accounts = {};
+try { accounts = JSON.parse(localStorage.getItem('pv-accounts') || '{}'); } catch(e) {}
 
-  function go(n) {
-    document.getElementById('s' + currentScreen).classList.remove('active');
-    document.getElementById('s' + n).classList.add('active');
-    currentScreen = n;
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
+function go(id) {
+  document.getElementById(S.screen).classList.remove('active');
+  document.getElementById(id).classList.add('active');
+  S.screen = id;
+  window.scrollTo({top:0,behavior:'smooth'});
+}
 
-  function step1() {
-    const fname = document.getElementById('fname').value.trim();
-    const err = document.getElementById('err1');
-    if (!fname) { err.classList.add('show'); return; }
+function showTab(tab) {
+  const map = {home:'s-home',discover:'s-discover',create:'s-create',profile:'s-profile'};
+  go(map[tab]);
+  // update all tab bars
+  const tabs = {home:['t1-home','t2-home','t3-home','t4-home'],discover:['t1-disc','t2-disc','t3-disc','t4-disc'],create:['t1-cre','t2-cre','t3-cre','t4-cre'],profile:['t1-prof','t2-prof','t3-prof','t4-prof']};
+  Object.keys(tabs).forEach(t => {
+    tabs[t].forEach(id => { const el=document.getElementById(id); if(el) el.classList.toggle('on', t===tab); });
+  });
+}
+
+function doLogin() {
+  const user = document.getElementById('li-user').value.trim();
+  const pass = document.getElementById('li-pass').value.trim();
+  const err = document.getElementById('li-err');
+  const found = accounts[user];
+  if ((found && found.pass === pass) || (user === 'demo' && pass === '1234')) {
     err.classList.remove('show');
-    go(2);
+    S.user = found || {name:'Demo',username:'demo',school:'Demo School',age:12,avatar:'🧒',interests:['⚽ Football','🏏 Cricket']};
+    enterApp();
+  } else {
+    err.classList.add('show');
   }
+}
 
-  function step3() {
-    const selected = document.querySelectorAll('#interests .pill.selected');
-    const err = document.getElementById('err3');
-    if (selected.length === 0) { err.style.display = 'block'; return; }
-    err.style.display = 'none';
-    go(4);
+function suStep1() {
+  const n = document.getElementById('su-name').value.trim();
+  if (!n) { document.getElementById('su-err1').classList.add('show'); return; }
+  document.getElementById('su-err1').classList.remove('show');
+  go('s-signup-age');
+}
+
+function suStep3() {
+  const chips = document.querySelectorAll('#interest-chips .chip.on');
+  if (!chips.length) { document.getElementById('su-err3').classList.add('show'); return; }
+  document.getElementById('su-err3').classList.remove('show');
+  go('s-signup-parent');
+}
+
+function sendOTP() {
+  const ph = document.getElementById('parent-phone').value.trim();
+  if (!ph) return;
+  document.getElementById('otp-row').style.display = 'flex';
+  document.getElementById('otp-hint').style.display = 'block';
+  document.getElementById('otp-btn').style.display = 'block';
+  document.getElementById('otp-row').querySelectorAll('input')[0].focus();
+}
+
+function otpMove(el, idx) {
+  if (el.value.length === 1) {
+    const ins = document.getElementById('otp-row').querySelectorAll('input');
+    if (idx < 3) ins[idx+1].focus();
   }
+}
 
-  function togglePill(el) {
-    el.classList.toggle('selected');
-    el.classList.toggle('accent-pill');
-  }
-
-  function pickAvatar(el) {
-    document.querySelectorAll('.avatar-opt').forEach(a => a.classList.remove('selected'));
-    el.classList.add('selected');
-    selectedAvatar = el.textContent;
-  }
-
-  function pickTheme(el, color) {
-    document.querySelectorAll('.theme-dot').forEach(d => d.classList.remove('selected'));
-    el.classList.add('selected');
-    document.documentElement.style.setProperty('--accent', color);
-  }
-
-  function finish() {
-    const name = document.getElementById('fname').value.trim();
-    const uname = document.getElementById('uname').value.trim() || name.toLowerCase() + '_plays';
-    const school = document.getElementById('school').value.trim() || 'Unknown School';
+function confirmOTP() {
+  const code = [...document.getElementById('otp-row').querySelectorAll('input')].map(i=>i.value).join('');
+  if (code === '2580') {
+    document.getElementById('su-err4').classList.remove('show');
+    const name = document.getElementById('su-name').value.trim();
+    const uname = document.getElementById('su-user').value.trim() || name.toLowerCase().replace(/ /g,'_')+'_plays';
+    const school = document.getElementById('su-school').value.trim() || 'Unknown School';
     const age = document.getElementById('age-slider').value;
-    const interests = [...document.querySelectorAll('#interests .pill.selected')].map(p => p.textContent);
-
-    const summary = document.getElementById('summary');
-    summary.innerHTML = `
-      <span class="summary-avatar">${selectedAvatar}</span>
-      <div class="summary-name">${name}</div>
-      <div class="summary-detail">@${uname} · ${age} yrs · ${school}</div>
-      <div class="summary-tags">
-        ${interests.map(i => `<span class="summary-tag">${i}</span>`).join('')}
-      </div>
-    `;
-    go(5);
+    const interests = [...document.querySelectorAll('#interest-chips .chip.on')].map(c=>c.textContent);
+    const avs = ['🧒','👦','👧','🧑','🦸','🤖'];
+    const avatar = avs[Math.floor(Math.random()*avs.length)];
+    S.user = {name,username:uname,school,age,avatar,interests,pass:'1234'};
+    accounts[uname] = S.user;
+    try { localStorage.setItem('pv-accounts', JSON.stringify(accounts)); } catch(e) {}
+    enterApp();
+  } else {
+    document.getElementById('su-err4').classList.add('show');
   }
+}
 
-  function finish() {
-    const name = document.getElementById('fname').value.trim();
-    const uname = document.getElementById('uname').value.trim() || name.toLowerCase().replace(' ','_') + '_plays';
-    const school = document.getElementById('school').value.trim() || 'Unknown School';
-    const age = document.getElementById('age-slider').value;
-    const interests = [...document.querySelectorAll('#interests .pill.selected')].map(p => p.textContent);
+function enterApp() {
+  const u = S.user;
+  document.getElementById('home-name').textContent = u.name + ' 👋';
+  document.getElementById('nav-av').textContent = u.avatar;
+  document.getElementById('prof-av').textContent = u.avatar;
+  document.getElementById('prof-name').textContent = u.name;
+  document.getElementById('prof-handle').textContent = `@${u.username} · ${u.school}`;
+  updateStats();
+  const ic = document.getElementById('prof-interests');
+  ic.innerHTML = (u.interests||[]).map(i=>`<div class="chip on">${i}</div>`).join('');
+  showTab('home');
+}
 
-    buildSummary(name, uname, school, age, interests);
-    go(5);
-  }
+function updateStats() {
+  ['h-streak','p-streak'].forEach(id=>{ const el=document.getElementById(id); if(el) el.textContent=S.streak; });
+  ['h-games','p-games'].forEach(id=>{ const el=document.getElementById(id); if(el) el.textContent=S.games; });
+  const pb = document.getElementById('prof-streak-badge');
+  if (pb) pb.textContent = `🔥 ${S.streak} day streak`;
+}
 
-  // fix: build summary on step5 load too
-  document.getElementById('s5').addEventListener('click', () => {}, false);
+function logout() { S.user=null; go('s-land'); }
 
-  function buildSummary(name, uname, school, age, interests) {
-    const summary = document.getElementById('summary');
-    summary.innerHTML = `
-      <span class="summary-avatar">${selectedAvatar}</span>
-      <div class="summary-name">${name || 'Player'}</div>
-      <div class="summary-detail">@${uname || 'player'} · ${age} yrs · ${school}</div>
-      <div class="summary-tags">
-        ${interests.length ? interests.map(i => `<span class="summary-tag">${i}</span>`).join('') : '<span class="summary-tag">No interests picked</span>'}
-      </div>
-    `;
-  }
+function joinGame(sport, loc, host) {
+  const icons = {Football:'⚽',Cricket:'🏏',Basketball:'🏀',Cycling:'🚴',Skating:'🛹',Swimming:'🏊'};
+  document.getElementById('joined-icon').textContent = icons[sport]||'🎮';
+  document.getElementById('joined-sub').textContent = `Head to ${loc}. Your crew is waiting.`;
+  document.getElementById('joined-card').innerHTML = `
+    <div class="card-row" style="margin-bottom:8px;">
+      <div><div style="font-family:'Syne',sans-serif;font-size:16px;font-weight:700;">${icons[sport]||'🎮'} ${sport}</div><div style="font-size:13px;color:var(--muted);margin-top:3px;">📍 ${loc} · Hosted by ${host}</div></div>
+      <span class="badge badge-green"><span class="live-dot" style="width:5px;height:5px;"></span> Joined</span>
+    </div>
+    <div style="font-size:12px;color:var(--muted);">🛡 Verified · Parent notified</div>
+  `;
+  go('s-joined');
+}
 
-  // Override finish to also show summary before going to s5
-  window.finish = function() {
-    const name = document.getElementById('fname').value.trim();
-    const uname = document.getElementById('uname').value.trim() || (name.toLowerCase().replace(/ /g,'_') + '_plays');
-    const school = document.getElementById('school').value.trim() || 'Unknown School';
-    const age = document.getElementById('age-slider').value;
-    const interests = [...document.querySelectorAll('#interests .pill.selected')].map(p => p.textContent);
-    buildSummary(name, uname, school, age, interests);
-    go(5);
-  }
+function goOutside() {
+  S.streak++; S.games++;
+  document.getElementById('pg-streak').textContent = S.streak;
+  document.getElementById('pg-streak2').textContent = S.streak;
+  document.getElementById('pg-games').textContent = S.games;
+  updateStats();
+  go('s-postgame');
+}
 
-  // Final enter
-  document.querySelector('#s5 .btn-primary').onclick = function() {
-    const name = document.getElementById('fname').value.trim() || 'Player';
-    document.getElementById('welcome-msg').textContent = `Welcome, ${name}! Your crew is waiting outside.`;
-    go(6);
-  }
+function publishGame() {
+  const loc = document.getElementById('create-loc').value.trim() || 'Main Ground';
+  joinGame(S.sport, loc, S.user?.name || 'You');
+}
+
+function toggleChip(el) { el.classList.toggle('on'); }
+
+function pickSport(el, sport) {
+  document.querySelectorAll('.sport-opt').forEach(s=>s.classList.remove('on'));
+  el.classList.add('on');
+  S.sport = sport;
+}
+
+function pickTime(el) {
+  document.querySelectorAll('.time-chip').forEach(t=>t.classList.remove('on'));
+  el.classList.add('on');
+}
+
+function filterSport(el) {
+  document.querySelectorAll('#s-discover .chip').forEach(c=>c.classList.remove('on'));
+  el.classList.add('on');
+}
 </script>
 </body>
 </html>
