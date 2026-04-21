@@ -1,142 +1,630 @@
-html<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Playverse</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
   <style>
+    :root {
+      --bg: #f5f2ec;
+      --ink: #111111;
+      --accent: #ff4d00;
+      --muted: #888;
+      --card: #ffffff;
+      --border: #e0ddd7;
+      --pill-bg: #ede9e1;
+    }
+
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
-      font-family: Arial, sans-serif;
-      background-color: #fff8e1;
-      color: #333;
-    }
-
-    nav {
-      background-color: #ff6f00;
-      padding: 16px 24px;
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      min-height: 100vh;
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      justify-content: center;
+      padding: 24px;
     }
 
-    .logo {
-      font-size: 24px;
-      font-weight: bold;
+    .app {
+      width: 100%;
+      max-width: 480px;
+    }
+
+    /* SCREENS */
+    .screen {
+      display: none;
+      animation: slideIn 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+    .screen.active { display: block; }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* PROGRESS BAR */
+    .progress-bar {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 48px;
+    }
+    .progress-bar span {
+      height: 3px;
+      flex: 1;
+      background: var(--border);
+      border-radius: 2px;
+      transition: background 0.3s;
+    }
+    .progress-bar span.done { background: var(--ink); }
+    .progress-bar span.active { background: var(--accent); }
+
+    /* LABEL */
+    .label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+
+    /* BIG HEADING */
+    h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(52px, 12vw, 80px);
+      line-height: 0.95;
+      letter-spacing: -1px;
+      margin-bottom: 20px;
+    }
+    h1 .accent { color: var(--accent); }
+
+    /* SUBTEXT */
+    .sub {
+      font-size: 16px;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 40px;
+      font-weight: 300;
+    }
+
+    /* INPUT */
+    .field { margin-bottom: 20px; }
+    .field label {
+      display: block;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+    .field input, .field select {
+      width: 100%;
+      background: var(--card);
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 16px;
+      font-size: 16px;
+      font-family: 'DM Sans', sans-serif;
+      color: var(--ink);
+      outline: none;
+      transition: border-color 0.2s;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+    .field input:focus, .field select:focus {
+      border-color: var(--ink);
+    }
+    .field input::placeholder { color: #bbb; }
+
+    /* PILL SELECTOR */
+    .pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 40px;
+    }
+    .pill {
+      padding: 10px 18px;
+      border-radius: 100px;
+      border: 1.5px solid var(--border);
+      background: var(--card);
+      font-size: 14px;
+      font-weight: 400;
+      cursor: pointer;
+      transition: all 0.15s;
+      user-select: none;
+    }
+    .pill:hover { border-color: var(--ink); }
+    .pill.selected {
+      background: var(--ink);
+      border-color: var(--ink);
       color: white;
     }
+    .pill.selected.accent-pill {
+      background: var(--accent);
+      border-color: var(--accent);
+    }
 
-    nav a {
+    /* AGE SLIDER */
+    .age-display {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 72px;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .age-display span { color: var(--accent); }
+
+    input[type="range"] {
+      -webkit-appearance: none;
+      width: 100%;
+      height: 4px;
+      background: var(--border);
+      border-radius: 2px;
+      outline: none;
+      margin-bottom: 40px;
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--ink);
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    input[type="range"]::-webkit-slider-thumb:hover { background: var(--accent); }
+
+    /* COLOR THEME PICKER */
+    .themes {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 40px;
+    }
+    .theme-dot {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      cursor: pointer;
+      border: 3px solid transparent;
+      transition: border-color 0.2s, transform 0.15s;
+      position: relative;
+    }
+    .theme-dot:hover { transform: scale(1.1); }
+    .theme-dot.selected { border-color: var(--ink); }
+    .theme-dot::after {
+      content: '✓';
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
       color: white;
-      text-decoration: none;
-      margin-left: 20px;
-      font-size: 15px;
+      opacity: 0;
+      transition: opacity 0.2s;
     }
+    .theme-dot.selected::after { opacity: 1; }
 
-    .hero {
-      text-align: center;
-      padding: 60px 20px;
-      background-color: #fffde7;
+    /* AVATAR GRID */
+    .avatars {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 40px;
     }
-
-    .hero h1 {
-      font-size: 40px;
-      color: #ff6f00;
-      margin-bottom: 16px;
+    .avatar-opt {
+      aspect-ratio: 1;
+      border-radius: 16px;
+      border: 2px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      cursor: pointer;
+      background: var(--card);
+      transition: all 0.15s;
     }
+    .avatar-opt:hover { border-color: var(--ink); transform: scale(1.05); }
+    .avatar-opt.selected { border-color: var(--ink); background: var(--ink); }
 
-    .hero p {
-      font-size: 18px;
-      color: #555;
-      max-width: 500px;
-      margin: 0 auto 24px;
-    }
-
-    .hero button {
-      background-color: #ff6f00;
+    /* BUTTONS */
+    .btn-primary {
+      width: 100%;
+      padding: 18px;
+      background: var(--ink);
       color: white;
       border: none;
-      padding: 14px 32px;
-      border-radius: 30px;
-      font-size: 16px;
+      border-radius: 14px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 20px;
+      letter-spacing: 1px;
       cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      margin-top: 8px;
     }
+    .btn-primary:hover { background: var(--accent); transform: translateY(-1px); }
+    .btn-primary:active { transform: translateY(0); }
 
-    .cards {
+    .btn-back {
+      background: none;
+      border: none;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      color: var(--muted);
+      cursor: pointer;
+      padding: 0;
+      margin-bottom: 32px;
       display: flex;
-      justify-content: center;
-      gap: 20px;
-      flex-wrap: wrap;
-      padding: 40px 20px;
+      align-items: center;
+      gap: 6px;
+      transition: color 0.2s;
     }
+    .btn-back:hover { color: var(--ink); }
 
-    .card {
-      background: white;
-      border-radius: 16px;
-      padding: 24px;
-      width: 220px;
-      text-align: center;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    /* DIVIDER */
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 20px 0;
     }
+    .divider::before, .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+    .divider span { font-size: 12px; color: var(--muted); }
 
-    .card .icon { font-size: 40px; margin-bottom: 12px; }
-    .card h3 { color: #ff6f00; margin-bottom: 8px; }
-    .card p { font-size: 13px; color: #666; }
-
-    footer {
-      text-align: center;
+    /* SUMMARY CARD */
+    .summary {
+      background: var(--card);
+      border-radius: 20px;
       padding: 24px;
-      background: #ff6f00;
-      color: white;
+      margin-bottom: 24px;
+      border: 1.5px solid var(--border);
+    }
+    .summary-avatar {
+      font-size: 52px;
+      margin-bottom: 12px;
+      display: block;
+    }
+    .summary-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 36px;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .summary-detail {
       font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+    .summary-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .summary-tag {
+      padding: 6px 14px;
+      background: var(--pill-bg);
+      border-radius: 100px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    /* WELCOME SCREEN */
+    .welcome-icon {
+      font-size: 64px;
+      display: block;
+      margin-bottom: 24px;
+      animation: bounce 1s ease infinite alternate;
+    }
+    @keyframes bounce {
+      from { transform: translateY(0); }
+      to   { transform: translateY(-10px); }
+    }
+
+    /* ERROR */
+    .error {
+      font-size: 13px;
+      color: var(--accent);
+      margin-top: -12px;
+      margin-bottom: 16px;
+      display: none;
+    }
+    .error.show { display: block; }
+
+    /* STEP COUNTER */
+    .step-count {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 6px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
     }
   </style>
 </head>
 <body>
+<div class="app">
 
-  <nav>
-    <div class="logo">🏡 Playverse</div>
-    <div>
-      <a href="#">Home</a>
-      <a href="#">Who's Outside?</a>
-      <a href="#">Activities</a>
-      <a href="#">My Friends</a>
-    </div>
-  </nav>
-
-  <div class="hero">
-    <h1>Go Outside & Play! 🌳</h1>
-    <p>See which friends in your community are ready to hang out. Put down the phone and go have fun!</p>
-    <button>Find Friends Nearby</button>
+  <!-- SCREEN 0: WELCOME -->
+  <div class="screen active" id="s0">
+    <span class="welcome-icon">🏡</span>
+    <div class="label">Welcome to</div>
+    <h1>PLAY<br><span class="accent">VERSE</span></h1>
+    <p class="sub">Your neighbourhood, online. Find kids nearby, plan outdoor hangouts, and actually go outside.</p>
+    <button class="btn-primary" onclick="go(1)">LET'S SET YOU UP</button>
+    <div class="divider"><span>already have an account?</span></div>
+    <button class="btn-primary" style="background: transparent; color: var(--ink); border: 1.5px solid var(--border);" onclick="alert('Login coming soon!')">SIGN IN</button>
   </div>
 
-  <div class="cards">
-    <div class="card">
-      <div class="icon">👟</div>
-      <h3>Who's Outside?</h3>
-      <p>See which kids in your community are out and ready to play right now.</p>
+  <!-- SCREEN 1: NAME + USERNAME -->
+  <div class="screen" id="s1">
+    <div class="progress-bar">
+      <span class="active"></span><span></span><span></span><span></span><span></span>
     </div>
-    <div class="card">
-      <div class="icon">🎯</div>
-      <h3>Plan Activities</h3>
-      <p>Organise a game of football, cricket, or anything you like with neighbours.</p>
+    <div class="step-count">Step 1 of 5</div>
+    <div class="label">The basics</div>
+    <h1>WHAT'S YOUR<br><span class="accent">NAME?</span></h1>
+    <div class="field">
+      <label>First Name</label>
+      <input type="text" id="fname" placeholder="e.g. Arjun" />
     </div>
-    <div class="card">
-      <div class="icon">🏅</div>
-      <h3>Earn Badges</h3>
-      <p>The more you play outside, the more badges you collect!</p>
+    <p class="error" id="err1">Please enter your name!</p>
+    <div class="field">
+      <label>Username</label>
+      <input type="text" id="uname" placeholder="e.g. arjun_plays" />
     </div>
-    <div class="card">
-      <div class="icon">🔒</div>
-      <h3>Safe & Private</h3>
-      <p>Only kids in your gated community can join. Parents stay in the loop.</p>
+    <div class="field">
+      <label>School</label>
+      <input type="text" id="school" placeholder="e.g. DPS Chennai" />
     </div>
+    <button class="btn-primary" onclick="step1()">NEXT →</button>
   </div>
 
-  <footer>
-    © 2026 Playverse — Made for kids, built for communities 🏡
-  </footer>
+  <!-- SCREEN 2: AGE -->
+  <div class="screen" id="s2">
+    <div class="progress-bar">
+      <span class="done"></span><span class="active"></span><span></span><span></span><span></span>
+    </div>
+    <button class="btn-back" onclick="go(1)">← Back</button>
+    <div class="step-count">Step 2 of 5</div>
+    <div class="label">How old are you?</div>
+    <h1>YOUR<br><span class="accent">AGE</span></h1>
+    <div class="age-display"><span id="age-val">10</span></div>
+    <p class="sub" style="margin-bottom: 16px;">years old</p>
+    <input type="range" id="age-slider" min="6" max="17" value="10"
+      oninput="document.getElementById('age-val').textContent = this.value" />
+    <button class="btn-primary" onclick="go(3)">NEXT →</button>
+  </div>
 
+  <!-- SCREEN 3: INTERESTS -->
+  <div class="screen" id="s3">
+    <div class="progress-bar">
+      <span class="done"></span><span class="done"></span><span class="active"></span><span></span><span></span>
+    </div>
+    <button class="btn-back" onclick="go(2)">← Back</button>
+    <div class="step-count">Step 3 of 5</div>
+    <div class="label">Pick your vibe</div>
+    <h1>WHAT DO<br>YOU <span class="accent">LOVE?</span></h1>
+    <p class="sub">Pick as many as you want.</p>
+    <div class="pills" id="interests">
+      <div class="pill" onclick="togglePill(this)">⚽ Football</div>
+      <div class="pill" onclick="togglePill(this)">🏏 Cricket</div>
+      <div class="pill" onclick="togglePill(this)">🛹 Skating</div>
+      <div class="pill" onclick="togglePill(this)">🎨 Drawing</div>
+      <div class="pill" onclick="togglePill(this)">🎮 Gaming</div>
+      <div class="pill" onclick="togglePill(this)">🚴 Cycling</div>
+      <div class="pill" onclick="togglePill(this)">🏊 Swimming</div>
+      <div class="pill" onclick="togglePill(this)">📚 Reading</div>
+      <div class="pill" onclick="togglePill(this)">🎵 Music</div>
+      <div class="pill" onclick="togglePill(this)">🎭 Acting</div>
+      <div class="pill" onclick="togglePill(this)">🐾 Pets</div>
+      <div class="pill" onclick="togglePill(this)">🌿 Nature</div>
+      <div class="pill" onclick="togglePill(this)">🍕 Food</div>
+      <div class="pill" onclick="togglePill(this)">✏️ Writing</div>
+      <div class="pill" onclick="togglePill(this)">🏀 Basketball</div>
+      <div class="pill" onclick="togglePill(this)">🎬 Movies</div>
+    </div>
+    <p class="error show" id="err3" style="display:none">Pick at least one interest!</p>
+    <button class="btn-primary" onclick="step3()">NEXT →</button>
+  </div>
+
+  <!-- SCREEN 4: AVATAR + THEME -->
+  <div class="screen" id="s4">
+    <div class="progress-bar">
+      <span class="done"></span><span class="done"></span><span class="done"></span><span class="active"></span><span></span>
+    </div>
+    <button class="btn-back" onclick="go(3)">← Back</button>
+    <div class="step-count">Step 4 of 5</div>
+    <div class="label">Make it yours</div>
+    <h1>YOUR<br><span class="accent">LOOK</span></h1>
+    <p class="sub" style="margin-bottom: 20px;">Pick an avatar.</p>
+    <div class="avatars" id="avatars">
+      <div class="avatar-opt selected" onclick="pickAvatar(this)">🧒</div>
+      <div class="avatar-opt" onclick="pickAvatar(this)">👦</div>
+      <div class="avatar-opt" onclick="pickAvatar(this)">👧</div>
+      <div class="avatar-opt" onclick="pickAvatar(this)">🧑</div>
+      <div class="avatar-opt" onclick="pickAvatar(this)">🦸</div>
+      <div class="avatar-opt" onclick="pickAvatar(this)">🧙</div>
+      <div class="avatar-opt" onclick="pickAvatar(this)">🤖</div>
+      <div class="avatar-opt" onclick="pickAvatar(this)">🐱</div>
+    </div>
+    <p class="sub" style="margin-bottom: 16px;">Pick an app theme.</p>
+    <div class="themes">
+      <div class="theme-dot selected" style="background:#111111" onclick="pickTheme(this,'#111111')" title="Classic"></div>
+      <div class="theme-dot" style="background:#ff4d00" onclick="pickTheme(this,'#ff4d00')" title="Fire"></div>
+      <div class="theme-dot" style="background:#0066ff" onclick="pickTheme(this,'#0066ff')" title="Sky"></div>
+      <div class="theme-dot" style="background:#00b050" onclick="pickTheme(this,'#00b050')" title="Grass"></div>
+      <div class="theme-dot" style="background:#9b30ff" onclick="pickTheme(this,'#9b30ff')" title="Galaxy"></div>
+      <div class="theme-dot" style="background:#e6007e" onclick="pickTheme(this,'#e6007e')" title="Pop"></div>
+    </div>
+    <button class="btn-primary" onclick="go(5)">NEXT →</button>
+  </div>
+
+  <!-- SCREEN 5: CONFIRM -->
+  <div class="screen" id="s5">
+    <div class="progress-bar">
+      <span class="done"></span><span class="done"></span><span class="done"></span><span class="done"></span><span class="active"></span>
+    </div>
+    <button class="btn-back" onclick="go(4)">← Back</button>
+    <div class="step-count">Step 5 of 5</div>
+    <div class="label">Almost there</div>
+    <h1>LOOKING<br><span class="accent">GOOD.</span></h1>
+    <div class="summary" id="summary"></div>
+    <button class="btn-primary" onclick="finish()">ENTER PLAYVERSE →</button>
+  </div>
+
+  <!-- SCREEN 6: DONE -->
+  <div class="screen" id="s6">
+    <span class="welcome-icon">🎉</span>
+    <div class="label">You're in!</div>
+    <h1>LET'S<br><span class="accent">PLAY.</span></h1>
+    <p class="sub" id="welcome-msg">Welcome! Your crew is waiting outside.</p>
+    <div style="background: var(--card); border-radius: 16px; padding: 20px; border: 1.5px solid var(--border); margin-bottom: 24px;">
+      <div style="font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); margin-bottom: 12px;">Right now in your community</div>
+      <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+        <span style="font-size: 28px;">👦</span>
+        <div>
+          <div style="font-weight: 500; font-size: 15px;">Rohan is outside</div>
+          <div style="font-size: 12px; color: var(--muted);">Near the park · 2 mins ago</div>
+        </div>
+        <div style="margin-left: auto; width: 8px; height: 8px; background: #00b050; border-radius: 50%;"></div>
+      </div>
+      <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+        <span style="font-size: 28px;">👧</span>
+        <div>
+          <div style="font-weight: 500; font-size: 15px;">Priya is outside</div>
+          <div style="font-size: 12px; color: var(--muted);">Near Block C · 5 mins ago</div>
+        </div>
+        <div style="margin-left: auto; width: 8px; height: 8px; background: #00b050; border-radius: 50%;"></div>
+      </div>
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <span style="font-size: 28px;">🧒</span>
+        <div>
+          <div style="font-weight: 500; font-size: 15px;">Aadi wants to play cricket</div>
+          <div style="font-size: 12px; color: var(--muted);">Ground floor · Now</div>
+        </div>
+        <div style="margin-left: auto; width: 8px; height: 8px; background: #ff4d00; border-radius: 50%;"></div>
+      </div>
+    </div>
+    <button class="btn-primary" onclick="alert('Full app coming soon! 🚀')">GO OUTSIDE NOW</button>
+  </div>
+
+</div>
+
+<script>
+  let currentScreen = 0;
+  let selectedAvatar = '🧒';
+
+  function go(n) {
+    document.getElementById('s' + currentScreen).classList.remove('active');
+    document.getElementById('s' + n).classList.add('active');
+    currentScreen = n;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function step1() {
+    const fname = document.getElementById('fname').value.trim();
+    const err = document.getElementById('err1');
+    if (!fname) { err.classList.add('show'); return; }
+    err.classList.remove('show');
+    go(2);
+  }
+
+  function step3() {
+    const selected = document.querySelectorAll('#interests .pill.selected');
+    const err = document.getElementById('err3');
+    if (selected.length === 0) { err.style.display = 'block'; return; }
+    err.style.display = 'none';
+    go(4);
+  }
+
+  function togglePill(el) {
+    el.classList.toggle('selected');
+    el.classList.toggle('accent-pill');
+  }
+
+  function pickAvatar(el) {
+    document.querySelectorAll('.avatar-opt').forEach(a => a.classList.remove('selected'));
+    el.classList.add('selected');
+    selectedAvatar = el.textContent;
+  }
+
+  function pickTheme(el, color) {
+    document.querySelectorAll('.theme-dot').forEach(d => d.classList.remove('selected'));
+    el.classList.add('selected');
+    document.documentElement.style.setProperty('--accent', color);
+  }
+
+  function finish() {
+    const name = document.getElementById('fname').value.trim();
+    const uname = document.getElementById('uname').value.trim() || name.toLowerCase() + '_plays';
+    const school = document.getElementById('school').value.trim() || 'Unknown School';
+    const age = document.getElementById('age-slider').value;
+    const interests = [...document.querySelectorAll('#interests .pill.selected')].map(p => p.textContent);
+
+    const summary = document.getElementById('summary');
+    summary.innerHTML = `
+      <span class="summary-avatar">${selectedAvatar}</span>
+      <div class="summary-name">${name}</div>
+      <div class="summary-detail">@${uname} · ${age} yrs · ${school}</div>
+      <div class="summary-tags">
+        ${interests.map(i => `<span class="summary-tag">${i}</span>`).join('')}
+      </div>
+    `;
+    go(5);
+  }
+
+  function finish() {
+    const name = document.getElementById('fname').value.trim();
+    const uname = document.getElementById('uname').value.trim() || name.toLowerCase().replace(' ','_') + '_plays';
+    const school = document.getElementById('school').value.trim() || 'Unknown School';
+    const age = document.getElementById('age-slider').value;
+    const interests = [...document.querySelectorAll('#interests .pill.selected')].map(p => p.textContent);
+
+    buildSummary(name, uname, school, age, interests);
+    go(5);
+  }
+
+  // fix: build summary on step5 load too
+  document.getElementById('s5').addEventListener('click', () => {}, false);
+
+  function buildSummary(name, uname, school, age, interests) {
+    const summary = document.getElementById('summary');
+    summary.innerHTML = `
+      <span class="summary-avatar">${selectedAvatar}</span>
+      <div class="summary-name">${name || 'Player'}</div>
+      <div class="summary-detail">@${uname || 'player'} · ${age} yrs · ${school}</div>
+      <div class="summary-tags">
+        ${interests.length ? interests.map(i => `<span class="summary-tag">${i}</span>`).join('') : '<span class="summary-tag">No interests picked</span>'}
+      </div>
+    `;
+  }
+
+  // Override finish to also show summary before going to s5
+  window.finish = function() {
+    const name = document.getElementById('fname').value.trim();
+    const uname = document.getElementById('uname').value.trim() || (name.toLowerCase().replace(/ /g,'_') + '_plays');
+    const school = document.getElementById('school').value.trim() || 'Unknown School';
+    const age = document.getElementById('age-slider').value;
+    const interests = [...document.querySelectorAll('#interests .pill.selected')].map(p => p.textContent);
+    buildSummary(name, uname, school, age, interests);
+    go(5);
+  }
+
+  // Final enter
+  document.querySelector('#s5 .btn-primary').onclick = function() {
+    const name = document.getElementById('fname').value.trim() || 'Player';
+    document.getElementById('welcome-msg').textContent = `Welcome, ${name}! Your crew is waiting outside.`;
+    go(6);
+  }
+</script>
 </body>
 </html>
