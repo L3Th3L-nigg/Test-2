@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>PlayVerse</title>
+</head>
+<body>
+
+<h1>PlayVerse</h1>
+<p>Reconnecting kids to real-world play.</p>
+
+<div id="container"></div>
+
+<script>
+let container = document.getElementById("container");
+
+// Generate lines dynamically
+for (let i = 1; i <= 2380; i++) {
+    let p = document.createElement("p");
+    p.textContent = "PlayVerse Line " + i;
+    container.appendChild(p);
+}
+</script>
+
+</body>
+</html>
