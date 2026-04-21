@@ -1,26 +1,142 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>PlayVerse</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Playverse</title>
+  <style>
+    body {
+      font-family: 'Comic Sans MS', cursive;
+      background-color: #fff8e1;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav {
+      background-color: #ff6f00;
+      padding: 16px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    nav .logo {
+      font-size: 26px;
+      font-weight: bold;
+      color: white;
+      letter-spacing: 1px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 20px;
+      font-size: 15px;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 60px 20px;
+    }
+
+    .hero h1 {
+      font-size: 42px;
+      color: #ff6f00;
+    }
+
+    .hero p {
+      font-size: 18px;
+      color: #555;
+      max-width: 500px;
+      margin: 16px auto;
+    }
+
+    .hero button {
+      background-color: #ff6f00;
+      color: white;
+      border: none;
+      padding: 14px 32px;
+      border-radius: 30px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 16px;
+    }
+
+    .cards {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      padding: 40px 20px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 16px;
+      padding: 24px;
+      width: 220px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    .card .icon { font-size: 40px; margin-bottom: 12px; }
+    .card h3 { color: #ff6f00; margin-bottom: 8px; }
+    .card p { font-size: 13px; color: #666; }
+
+    footer {
+      text-align: center;
+      padding: 24px;
+      background: #ff6f00;
+      color: white;
+      font-size: 13px;
+    }
+  </style>
 </head>
 <body>
 
-<h1>PlayVerse</h1>
-<p>Reconnecting kids to real-world play.</p>
+  <nav>
+    <div class="logo">🏡 Playverse</div>
+    <div>
+      <a href="#">Home</a>
+      <a href="#">Who's Outside?</a>
+      <a href="#">Activities</a>
+      <a href="#">My Friends</a>
+    </div>
+  </nav>
 
-<div id="container"></div>
+  <div class="hero">
+    <h1>Go Outside & Play! 🌳</h1>
+    <p>See which friends in your community are ready to hang out. Put down the phone and go have fun!</p>
+    <button>Find Friends Nearby</button>
+  </div>
 
-<script>
-let container = document.getElementById("container");
+  <div class="cards">
+    <div class="card">
+      <div class="icon">👟</div>
+      <h3>Who's Outside?</h3>
+      <p>See which kids in your community are out and ready to play right now.</p>
+    </div>
+    <div class="card">
+      <div class="icon">🎯</div>
+      <h3>Plan Activities</h3>
+      <p>Organise a game of football, cricket, or anything you like with your neighbours.</p>
+    </div>
+    <div class="card">
+      <div class="icon">🏅</div>
+      <h3>Earn Badges</h3>
+      <p>The more you play outside, the more badges you collect!</p>
+    </div>
+    <div class="card">
+      <div class="icon">🔒</div>
+      <h3>Safe & Private</h3>
+      <p>Only kids in your gated community can join. Parents stay in the loop.</p>
+    </div>
+  </div>
 
-// Generate lines dynamically
-for (let i = 1; i <= 2380; i++) {
-    let p = document.createElement("p");
-    p.textContent = "PlayVerse Line " + i;
-    container.appendChild(p);
-}
-</script>
+  <footer>
+    © 2026 Playverse — Made for kids, built for communities 🏡
+  </footer>
 
 </body>
 </html>
