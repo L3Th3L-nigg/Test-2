@@ -6,36 +6,19 @@
 <title>Playverse</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
 <style>
-:root {
-  --bg: #0a0a0a;
-  --bg2: #141414;
-  --bg3: #1c1c1c;
-  --border: #2a2a2a;
-  --border2: #333;
-  --text: #e5e5e5;
-  --muted: #888;
-  --muted2: #555;
-  --green: #22c55e;
-  --green-dim: rgba(34,197,94,0.12);
-  --blue: #3b82f6;
-  --blue-dim: rgba(59,130,246,0.12);
-  --yellow: #eab308;
-  --yellow-dim: rgba(234,179,8,0.1);
-  --lightblue: #7dd3fc;
-  --lightblue-dim: rgba(125,211,252,0.1);
-  --red: #ef4444;
+:root{
+  --bg:#0a0a0a;--bg2:#141414;--bg3:#1c1c1c;--bg4:#222;
+  --border:#2a2a2a;--border2:#333;--border3:#3a3a3a;
+  --text:#e5e5e5;--muted:#888;--muted2:#555;
+  --green:#22c55e;--green-dim:rgba(34,197,94,0.12);--green-glow:rgba(34,197,94,0.08);
+  --blue:#3b82f6;--blue-dim:rgba(59,130,246,0.12);
+  --yellow:#eab308;--yellow-dim:rgba(234,179,8,0.1);
+  --lightblue:#7dd3fc;--lightblue-dim:rgba(125,211,252,0.1);
+  --red:#ef4444;--red-dim:rgba(239,68,68,0.1);
+  --orange:#f97316;--orange-dim:rgba(249,115,22,0.1);
 }
 *{margin:0;padding:0;box-sizing:border-box;}
-body{
-  font-family:'DM Sans',sans-serif;
-  background:var(--bg);
-  color:var(--text);
-  min-height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:20px;
-}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;}
 .app{width:100%;max-width:420px;}
 .screen{display:none;animation:up 0.35s cubic-bezier(0.22,1,0.36,1) both;}
 .screen.active{display:block;}
@@ -44,30 +27,26 @@ body{
 /* TYPE */
 .eyebrow{font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;}
 h1{font-family:'Syne',sans-serif;font-size:clamp(38px,10vw,56px);font-weight:800;line-height:1;letter-spacing:-1.5px;margin-bottom:16px;}
-h2{font-family:'Syne',sans-serif;font-size:26px;font-weight:700;letter-spacing:-0.5px;margin-bottom:8px;}
+h2{font-family:'Syne',sans-serif;font-size:24px;font-weight:700;letter-spacing:-0.5px;margin-bottom:8px;}
 .sub{font-size:15px;color:var(--muted);line-height:1.6;font-weight:300;}
 
 /* INPUTS */
 .field{margin-bottom:14px;}
 .field label{display:block;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:7px;}
-.field input,.field select{
-  width:100%;background:var(--bg2);border:1px solid var(--border);
-  border-radius:10px;padding:13px 16px;font-size:15px;
-  font-family:'DM Sans',sans-serif;color:var(--text);outline:none;
-  transition:border-color 0.2s;appearance:none;-webkit-appearance:none;
-}
+.field input,.field select{width:100%;background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:13px 16px;font-size:15px;font-family:'DM Sans',sans-serif;color:var(--text);outline:none;transition:border-color 0.2s;appearance:none;-webkit-appearance:none;}
 .field input:focus,.field select:focus{border-color:var(--blue);}
 .field input::placeholder{color:var(--muted2);}
 
 /* BUTTONS */
-.btn{width:100%;padding:15px;border:none;border-radius:10px;font-family:'Syne',sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:all 0.2s;}
+.btn{width:100%;padding:15px;border:none;border-radius:10px;font-family:'Syne',sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:all 0.2s;letter-spacing:0.2px;}
 .btn:active{transform:scale(0.98);}
 .btn-primary{background:var(--text);color:var(--bg);}
 .btn-primary:hover{background:#fff;}
 .btn-outline{background:transparent;color:var(--text);border:1px solid var(--border2);}
 .btn-outline:hover{border-color:var(--text);}
-.btn-green{background:var(--green);color:#000;}
+.btn-green{background:var(--green);color:#000;font-weight:700;}
 .btn-green:hover{background:#16a34a;}
+.btn-blue{background:var(--blue);color:#fff;}
 .btn-sm{padding:9px 16px;border-radius:8px;border:none;font-family:'Syne',sans-serif;font-size:12px;font-weight:700;cursor:pointer;transition:all 0.2s;width:auto;}
 .btn-sm:active{transform:scale(0.97);}
 .back{display:flex;align-items:center;gap:6px;background:none;border:none;color:var(--muted);font-size:13px;cursor:pointer;padding:0;margin-bottom:28px;font-family:'DM Sans',sans-serif;transition:color 0.2s;}
@@ -79,12 +58,7 @@ h2{font-family:'Syne',sans-serif;font-size:26px;font-weight:700;letter-spacing:-
 .chip:hover{border-color:var(--text);color:var(--text);}
 .chip.on{background:var(--text);border-color:var(--text);color:var(--bg);font-weight:500;}
 
-/* DIVIDER */
-.or{display:flex;align-items:center;gap:10px;margin:18px 0;}
-.or::before,.or::after{content:'';flex:1;height:1px;background:var(--border);}
-.or span{font-size:12px;color:var(--muted);}
-
-/* DOTS */
+/* DOTS PROGRESS */
 .dots{display:flex;gap:6px;margin-bottom:36px;}
 .dot{width:20px;height:3px;border-radius:2px;background:var(--border2);transition:all 0.3s;}
 .dot.on{background:var(--text);width:32px;}
@@ -95,71 +69,126 @@ h2{font-family:'Syne',sans-serif;font-size:26px;font-weight:700;letter-spacing:-
 .otp-row input{flex:1;text-align:center;font-size:22px;font-family:'Syne',sans-serif;font-weight:700;padding:16px 0;background:var(--bg2);border:1px solid var(--border);border-radius:10px;color:var(--text);outline:none;transition:border-color 0.2s;}
 .otp-row input:focus{border-color:var(--blue);}
 
-/* AGE */
+/* AGE SLIDER */
 .age-big{font-family:'Syne',sans-serif;font-size:80px;font-weight:800;line-height:1;letter-spacing:-3px;margin-bottom:6px;}
 .age-big span{color:var(--green);}
 input[type=range]{-webkit-appearance:none;width:100%;height:3px;background:var(--border2);border-radius:2px;outline:none;margin:12px 0 32px;}
 input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:var(--text);cursor:pointer;}
 
 /* LIVE DOT */
-.live-dot{display:inline-block;width:7px;height:7px;background:var(--green);border-radius:50%;animation:pulse2 1.5s infinite;}
-@keyframes pulse2{0%,100%{opacity:1;}50%{opacity:0.4;}}
+.live-dot{display:inline-block;width:7px;height:7px;background:var(--green);border-radius:50%;animation:blink 1.5s infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0.3;}}
 
-/* CARDS */
-.card{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:16px 18px;margin-bottom:10px;}
-.card-row{display:flex;align-items:center;justify-content:space-between;}
+/* BADGES */
 .badge{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:100px;font-size:11px;font-weight:500;}
 .badge-green{background:var(--green-dim);color:var(--green);}
 .badge-blue{background:var(--blue-dim);color:var(--blue);}
 .badge-yellow{background:var(--yellow-dim);color:var(--yellow);}
 .badge-lightblue{background:var(--lightblue-dim);color:var(--lightblue);}
+.badge-orange{background:var(--orange-dim);color:var(--orange);}
+.badge-red{background:var(--red-dim);color:var(--red);}
+
+/* CARDS */
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:16px 18px;margin-bottom:10px;}
+.card-row{display:flex;align-items:center;justify-content:space-between;}
 
 /* NAV */
-.nav-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px;}
+.nav-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;}
 .nav-logo{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;letter-spacing:-0.5px;}
-.nav-avatar{width:34px;height:34px;border-radius:50%;background:var(--bg3);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:16px;cursor:pointer;}
-
-/* STATS */
-.stats-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:20px;}
-.stat-box{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:14px;text-align:center;}
-.stat-num{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;margin-bottom:2px;}
-.stat-lbl{font-size:11px;color:var(--muted);}
+.nav-avatar{width:34px;height:34px;border-radius:50%;background:var(--bg3);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:16px;cursor:pointer;position:relative;}
 
 /* GAME CARD */
 .game-card{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:16px 18px;margin-bottom:10px;cursor:pointer;transition:border-color 0.2s,background 0.2s;}
 .game-card:hover{border-color:var(--border2);background:var(--bg3);}
+.game-card.featured{border-color:rgba(34,197,94,0.3);background:var(--green-glow);}
 .gc-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px;}
 .gc-sport{font-family:'Syne',sans-serif;font-size:17px;font-weight:700;}
-.gc-meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px;}
+.gc-meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:5px;}
 .gc-tag{font-size:12px;color:var(--muted);}
 .player-pip{width:26px;height:26px;border-radius:50%;background:var(--bg3);border:2px solid var(--bg2);display:flex;align-items:center;justify-content:center;font-size:12px;margin-right:-6px;}
 
 /* SECTION LABEL */
 .sec-label{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;}
-.sec-label a{color:var(--blue);font-size:11px;cursor:pointer;}
+.sec-label a{color:var(--blue);font-size:11px;cursor:pointer;letter-spacing:0;}
 
 /* FRIEND BAR */
-.friend-bar{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:14px 16px;display:flex;align-items:center;gap:12px;margin-bottom:20px;}
-.friend-bar .ficon{font-size:22px;}
-.friend-bar .ftext{flex:1;}
-.friend-bar .ftext strong{font-size:14px;display:block;}
-.friend-bar .ftext span{font-size:12px;color:var(--muted);}
+.friend-bar{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:14px 16px;display:flex;align-items:center;gap:12px;margin-bottom:16px;}
+.ficon{font-size:22px;}
+.ftext{flex:1;}
+.ftext strong{font-size:14px;display:block;}
+.ftext span{font-size:12px;color:var(--muted);}
 
-/* SPORT GRID */
+/* ── NEW: INSTANT PLAY CARD ── */
+.instant-card{
+  background:linear-gradient(135deg,rgba(34,197,94,0.08),rgba(34,197,94,0.03));
+  border:1px solid rgba(34,197,94,0.25);border-radius:16px;
+  padding:20px;margin-bottom:16px;cursor:pointer;transition:border-color 0.2s;
+}
+.instant-card:hover{border-color:rgba(34,197,94,0.5);}
+.instant-label{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:8px;display:flex;align-items:center;gap:6px;}
+.instant-title{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;margin-bottom:4px;}
+.instant-sub{font-size:13px;color:var(--muted);}
+.instant-action{margin-top:14px;display:flex;align-items:center;justify-content:space-between;}
+
+/* ── NEW: ENERGY BAR ── */
+.energy-block{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:14px 16px;margin-bottom:16px;}
+.energy-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+.energy-label{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);}
+.energy-level{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;}
+.energy-track{height:6px;background:var(--border);border-radius:3px;overflow:hidden;}
+.energy-fill{height:100%;border-radius:3px;transition:width 1s cubic-bezier(0.22,1,0.36,1);}
+.energy-segments{display:flex;gap:4px;margin-top:8px;}
+.energy-seg{flex:1;height:3px;border-radius:2px;background:var(--border);}
+.energy-seg.lit{background:var(--green);}
+.energy-seg.lit.warm{background:var(--yellow);}
+.energy-seg.lit.hot{background:var(--orange);}
+
+/* ── NEW: REPUTATION TAGS ── */
+.rep-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;}
+.rep-tag{padding:4px 10px;border-radius:100px;font-size:11px;font-weight:500;border:1px solid var(--border2);color:var(--muted);}
+.rep-tag.earned{background:var(--bg3);border-color:var(--border3);color:var(--text);}
+
+/* ── NEW: LIVE TICKER ── */
+.live-ticker{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:10px 14px;margin-bottom:16px;display:flex;align-items:center;gap:8px;overflow:hidden;}
+.ticker-dot{width:6px;height:6px;border-radius:50%;background:var(--green);flex-shrink:0;animation:blink 1.5s infinite;}
+.ticker-text{font-size:13px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.ticker-text strong{color:var(--text);}
+
+/* ── NEW: PRE-GAME COUNTDOWN ── */
+.countdown-card{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:20px;margin-bottom:16px;}
+.countdown-time{font-family:'Syne',sans-serif;font-size:48px;font-weight:800;letter-spacing:-2px;color:var(--green);line-height:1;margin-bottom:4px;}
+.countdown-sub{font-size:13px;color:var(--muted);}
+.focus-toggle{display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-top:1px solid var(--border);margin-top:14px;}
+.focus-label{font-size:13px;}
+.toggle{width:42px;height:24px;border-radius:12px;background:var(--border2);cursor:pointer;position:relative;transition:background 0.2s;border:none;}
+.toggle.on{background:var(--green);}
+.toggle::after{content:'';position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:transform 0.2s;}
+.toggle.on::after{transform:translateX(18px);}
+
+/* ── NEW: SPORT GRID ── */
 .sport-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:20px;}
 .sport-opt{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:14px 8px;text-align:center;cursor:pointer;transition:all 0.15s;}
 .sport-opt:hover{border-color:var(--border2);}
 .sport-opt.on{background:var(--bg3);border-color:var(--text);}
-.sport-opt .s-icon{font-size:24px;margin-bottom:6px;}
-.sport-opt .s-name{font-size:12px;font-weight:500;}
+.s-icon{font-size:24px;margin-bottom:6px;}
+.s-name{font-size:12px;font-weight:500;}
 
-/* TIME */
+/* TIME CHIPS */
 .time-opts{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;}
 .time-chip{padding:9px 16px;border-radius:8px;border:1px solid var(--border);background:transparent;font-size:13px;color:var(--muted);cursor:pointer;transition:all 0.15s;font-family:'DM Sans',sans-serif;}
 .time-chip:hover{border-color:var(--text);color:var(--text);}
 .time-chip.on{background:var(--bg3);border-color:var(--text);color:var(--text);}
 
-/* CONFIRM */
+/* ── NEW: FEEDBACK SCREEN ── */
+.tag-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:16px 0 24px;}
+.ftag{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:14px;text-align:center;cursor:pointer;transition:all 0.15s;}
+.ftag:hover{border-color:var(--border2);}
+.ftag.on{border-color:var(--green);background:var(--green-dim);}
+.ftag .ftag-icon{font-size:22px;margin-bottom:6px;}
+.ftag .ftag-label{font-size:13px;font-weight:500;}
+.ftag .ftag-sub{font-size:11px;color:var(--muted);margin-top:2px;}
+
+/* CONFIRM ANIM */
 .confirm-icon{font-size:64px;text-align:center;display:block;margin-bottom:20px;animation:pop 0.5s cubic-bezier(0.22,1,0.36,1);}
 @keyframes pop{from{transform:scale(0.5);opacity:0;}to{transform:scale(1);opacity:1;}}
 
@@ -169,6 +198,12 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
 .profile-name{font-family:'Syne',sans-serif;font-size:24px;font-weight:800;}
 .profile-handle{font-size:14px;color:var(--muted);margin-top:2px;}
 .badge-row{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:12px;}
+
+/* STATS */
+.stats-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:16px;}
+.stat-box{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:14px;text-align:center;}
+.stat-num{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;margin-bottom:2px;}
+.stat-lbl{font-size:11px;color:var(--muted);}
 
 /* NOTIF */
 .notif{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:12px 16px;display:flex;align-items:center;gap:10px;margin-bottom:8px;}
@@ -193,12 +228,25 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
 .err.show{display:block;}
 
 .sep{height:1px;background:var(--border);margin:18px 0;}
+.or{display:flex;align-items:center;gap:10px;margin:18px 0;}
+.or::before,.or::after{content:'';flex:1;height:1px;background:var(--border);}
+.or span{font-size:12px;color:var(--muted);}
+
+/* ── NEW: PLAYED TOGETHER ── */
+.played-together{display:inline-flex;align-items:center;gap:4px;font-size:11px;color:var(--muted);background:var(--bg3);border-radius:100px;padding:3px 8px;}
+.played-together::before{content:'🤝';font-size:10px;}
+
+/* ── NEW: UNLOCK HINT ── */
+.unlock-hint{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:12px 14px;display:flex;align-items:center;gap:10px;margin-bottom:12px;}
+.unlock-hint .uicon{font-size:16px;}
+.unlock-hint .utext{font-size:12px;color:var(--muted);flex:1;}
+.unlock-hint .utext strong{color:var(--text);display:block;font-size:13px;}
 </style>
 </head>
 <body>
 <div class="app">
 
-<!-- LANDING -->
+<!-- ═══════════ LANDING ═══════════ -->
 <div class="screen active" id="s-land">
   <div style="min-height:100vh;display:flex;flex-direction:column;justify-content:space-between;padding:48px 0 20px;">
     <div>
@@ -207,17 +255,18 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
       <p class="sub" style="margin-top:16px;max-width:280px;">Your neighbourhood, online. Find who's outside. Go play.</p>
     </div>
     <div>
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:32px;">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
         <span class="live-dot"></span>
         <span style="font-size:13px;color:var(--muted);">14 kids playing nearby right now</span>
       </div>
+      <div style="font-size:12px;color:var(--muted2);margin-bottom:28px;">3 games starting in the next hour</div>
       <button class="btn btn-primary" style="margin-bottom:12px;" onclick="go('s-signup-name')">Create account</button>
       <button class="btn btn-outline" onclick="go('s-login')">Sign in</button>
     </div>
   </div>
 </div>
 
-<!-- LOGIN -->
+<!-- ═══════════ LOGIN ═══════════ -->
 <div class="screen" id="s-login">
   <div style="padding-top:48px;">
     <button class="back" onclick="go('s-land')">← Back</button>
@@ -233,7 +282,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
   </div>
 </div>
 
-<!-- SIGNUP: NAME -->
+<!-- ═══════════ SIGNUP: NAME ═══════════ -->
 <div class="screen" id="s-signup-name">
   <div style="padding-top:40px;">
     <button class="back" onclick="go('s-land')">← Back</button>
@@ -250,7 +299,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
   </div>
 </div>
 
-<!-- SIGNUP: AGE -->
+<!-- ═══════════ SIGNUP: AGE ═══════════ -->
 <div class="screen" id="s-signup-age">
   <div style="padding-top:40px;">
     <button class="back" onclick="go('s-signup-name')">← Back</button>
@@ -266,7 +315,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
   </div>
 </div>
 
-<!-- SIGNUP: INTERESTS -->
+<!-- ═══════════ SIGNUP: INTERESTS ═══════════ -->
 <div class="screen" id="s-signup-interests">
   <div style="padding-top:40px;">
     <button class="back" onclick="go('s-signup-age')">← Back</button>
@@ -293,7 +342,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
   </div>
 </div>
 
-<!-- SIGNUP: PARENT VERIFY -->
+<!-- ═══════════ SIGNUP: PARENT OTP ═══════════ -->
 <div class="screen" id="s-signup-parent">
   <div style="padding-top:40px;">
     <button class="back" onclick="go('s-signup-interests')">← Back</button>
@@ -303,7 +352,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
     <p class="sub" style="margin-top:8px;margin-bottom:20px;">A 4-digit code goes to your parent's phone. They approve, you're in.</p>
     <div style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:14px 16px;margin-bottom:20px;display:flex;align-items:center;gap:10px;">
       <span style="font-size:18px;">🔒</span>
-      <div><div style="font-size:13px;font-weight:500;">Safety first</div><div style="font-size:12px;color:var(--muted);">All accounts need parent approval.</div></div>
+      <div><div style="font-size:13px;font-weight:500;">Safety first</div><div style="font-size:12px;color:var(--muted);">All accounts need parent approval. Always.</div></div>
     </div>
     <div class="field"><label>Parent's phone</label><input id="parent-phone" type="tel" placeholder="+91 98765 43210"/></div>
     <button class="btn btn-outline" style="margin-bottom:16px;" onclick="sendOTP()">Send OTP</button>
@@ -319,58 +368,113 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
   </div>
 </div>
 
-<!-- HOME -->
+<!-- ═══════════ HOME ═══════════ -->
 <div class="screen" id="s-home">
   <div>
     <div class="nav-bar">
       <div class="nav-logo">PLAYVERSE</div>
       <div style="display:flex;align-items:center;gap:10px;">
-        <span style="display:flex;align-items:center;gap:5px;font-size:12px;color:var(--green);"><span class="live-dot"></span>3 near you</span>
+        <div class="live-ticker" style="margin:0;padding:6px 10px;font-size:12px;border-radius:100px;">
+          <span class="ticker-dot"></span>
+          <span style="color:var(--muted);font-size:12px;">3 near you</span>
+        </div>
         <div class="nav-avatar" onclick="showTab('profile')" id="nav-av">🧒</div>
       </div>
     </div>
-    <div style="margin-bottom:24px;">
-      <div style="font-size:13px;color:var(--muted);margin-bottom:4px;">Good afternoon,</div>
-      <h2 id="home-name" style="font-size:28px;margin-bottom:0;">Player 👋</h2>
+
+    <!-- GREETING -->
+    <div style="margin-bottom:20px;">
+      <div style="font-size:13px;color:var(--muted);margin-bottom:3px;" id="home-greeting">Good afternoon,</div>
+      <h2 id="home-name" style="font-size:26px;margin-bottom:0;">Player 👋</h2>
     </div>
-    <div class="stats-row">
-      <div class="stat-box"><div class="stat-num" style="color:var(--green);" id="h-streak">5</div><div class="stat-lbl">Streak</div></div>
-      <div class="stat-box"><div class="stat-num" id="h-games">12</div><div class="stat-lbl">Games</div></div>
-      <div class="stat-box"><div class="stat-num" style="color:var(--yellow);">3</div><div class="stat-lbl">Badges</div></div>
+
+    <!-- LIVE TICKER -->
+    <div class="live-ticker">
+      <span class="ticker-dot"></span>
+      <span class="ticker-text" id="ticker-msg"><strong>Rohan</strong> just joined a Cricket game · Block C</span>
     </div>
+
+    <!-- ENERGY BAR -->
+    <div class="energy-block">
+      <div class="energy-top">
+        <span class="energy-label">Momentum</span>
+        <span class="energy-level" id="energy-label-text" style="color:var(--green);">Building 🔥</span>
+      </div>
+      <div class="energy-track"><div class="energy-fill" id="energy-fill" style="width:60%;background:var(--green);"></div></div>
+      <div class="energy-segments" id="energy-segs"></div>
+      <div style="font-size:11px;color:var(--muted);margin-top:8px;" id="energy-hint">Play today to keep your streak going</div>
+    </div>
+
+    <!-- INSTANT PLAY -->
+    <div class="instant-card" onclick="quickJoin()">
+      <div class="instant-label"><span class="live-dot" style="width:6px;height:6px;"></span>Instant Play</div>
+      <div class="instant-title" id="ip-title">Football · Main Ground</div>
+      <div class="instant-sub" id="ip-sub">5 players · starting in 12 min · your pick</div>
+      <div class="instant-action">
+        <div style="display:flex;gap:6px;">
+          <span class="badge badge-green">Best match</span>
+          <span class="verified">🛡 Verified</span>
+        </div>
+        <button class="btn-sm btn-green">Join now →</button>
+      </div>
+    </div>
+
+    <!-- FRIEND ACTIVITY -->
     <div class="friend-bar">
       <div class="ficon">👟</div>
       <div class="ftext">
         <strong>Rohan is playing Cricket now</strong>
-        <span>Near Block C · 4 players · <span class="live-dot" style="width:5px;height:5px;"></span> Live</span>
+        <span>Block C · <span class="played-together">played together before</span></span>
       </div>
       <button class="btn-sm btn-green" onclick="joinGame('Cricket','Block C Ground','Rohan')">Join</button>
     </div>
+
+    <!-- CTA PAIR -->
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:24px;">
       <button class="btn btn-primary" style="border-radius:12px;font-size:14px;padding:18px 12px;" onclick="showTab('discover')">Find a game</button>
       <button class="btn btn-outline" style="border-radius:12px;font-size:14px;padding:18px 12px;" onclick="showTab('create')">Create game</button>
     </div>
+
+    <!-- NEARBY -->
     <div class="sec-label">Nearby games <a onclick="showTab('discover')">See all →</a></div>
-    <div class="game-card" onclick="joinGame('Football','Main Ground','Aryan')">
+
+    <div class="game-card featured" onclick="joinGame('Football','Main Ground','Aryan')">
       <div class="gc-top">
-        <div><div class="gc-sport">⚽ Football</div><div class="gc-meta"><span class="gc-tag">📍 Main Ground</span><span class="gc-tag">🕐 4:30 PM</span></div></div>
+        <div>
+          <div class="gc-sport">⚽ Football</div>
+          <div class="gc-meta"><span class="gc-tag">📍 Main Ground</span><span class="gc-tag">🕐 4:30 PM</span></div>
+        </div>
         <span class="badge badge-green"><span class="live-dot" style="width:5px;height:5px;"></span> Live</span>
       </div>
       <div style="display:flex;align-items:center;justify-content:space-between;">
-        <div style="display:flex;align-items:center;gap:6px;"><div style="display:flex;"><div class="player-pip">👦</div><div class="player-pip">👧</div><div class="player-pip">🧒</div></div><span style="font-size:12px;color:var(--muted);">5/10 players</span></div>
-        <span class="verified">🛡 Verified</span>
+        <div style="display:flex;align-items:center;gap:6px;">
+          <div style="display:flex;"><div class="player-pip">👦</div><div class="player-pip">👧</div><div class="player-pip">🧒</div></div>
+          <span style="font-size:12px;color:var(--muted);">5/10</span>
+        </div>
+        <div style="display:flex;gap:6px;align-items:center;">
+          <span class="played-together">3 familiar</span>
+          <span class="verified">🛡</span>
+        </div>
       </div>
     </div>
+
     <div class="game-card" onclick="joinGame('Basketball','Court A','Priya')">
       <div class="gc-top">
-        <div><div class="gc-sport">🏀 Basketball</div><div class="gc-meta"><span class="gc-tag">📍 Court A</span><span class="gc-tag">🕐 5:00 PM</span></div></div>
+        <div>
+          <div class="gc-sport">🏀 Basketball</div>
+          <div class="gc-meta"><span class="gc-tag">📍 Court A</span><span class="gc-tag">🕐 5:00 PM</span></div>
+        </div>
         <span class="badge badge-blue">Starting soon</span>
       </div>
       <div style="display:flex;align-items:center;justify-content:space-between;">
-        <div style="display:flex;align-items:center;gap:6px;"><div style="display:flex;"><div class="player-pip">🧑</div><div class="player-pip">👦</div></div><span style="font-size:12px;color:var(--muted);">2/6 players</span></div>
+        <div style="display:flex;align-items:center;gap:6px;">
+          <div style="display:flex;"><div class="player-pip">🧑</div><div class="player-pip">👦</div></div>
+          <span style="font-size:12px;color:var(--muted);">2/6</span>
+        </div>
         <span class="verified">🛡 Verified</span>
       </div>
     </div>
+
     <div class="tab-bar">
       <div class="tab on" id="t1-home" onclick="showTab('home')"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>Home</span></div>
       <div class="tab" id="t1-disc" onclick="showTab('discover')"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><span>Discover</span></div>
@@ -380,29 +484,76 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
   </div>
 </div>
 
-<!-- DISCOVER -->
+<!-- ═══════════ PRE-GAME SCREEN ═══════════ -->
+<div class="screen" id="s-pregame">
+  <div style="padding-top:40px;">
+    <button class="back" onclick="go('s-home')">← Back</button>
+    <div class="eyebrow" id="pg-eyebrow">You're joining</div>
+    <h1 style="font-size:44px;" id="pg-title">FOOT<br>BALL</h1>
+
+    <div class="countdown-card">
+      <div style="font-size:12px;color:var(--muted);margin-bottom:6px;">Game starts in</div>
+      <div class="countdown-time" id="countdown-display">12:00</div>
+      <div class="countdown-sub" id="pg-loc-text">📍 Main Ground · 5 players ready</div>
+      <div class="focus-toggle">
+        <div>
+          <div class="focus-label">Focus mode</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:2px;">Mutes notifications till game ends</div>
+        </div>
+        <button class="toggle" id="focus-toggle" onclick="toggleFocus(this)"></button>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:12px;">
+      <div style="font-size:12px;color:var(--muted);margin-bottom:8px;letter-spacing:1px;text-transform:uppercase;">Who's coming</div>
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+        <span style="font-size:22px;">👦</span><div><div style="font-size:14px;font-weight:500;">Rohan</div><div style="font-size:11px;color:var(--muted);">Reliable · Team player</div></div>
+        <span class="played-together" style="margin-left:auto;">🤝 played before</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+        <span style="font-size:22px;">👧</span><div><div style="font-size:14px;font-weight:500;">Priya</div><div style="font-size:11px;color:var(--muted);">Fun · Shows up</div></div>
+        <span class="badge badge-lightblue" style="margin-left:auto;">🛡 Verified</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <span style="font-size:22px;">🧒</span><div><div style="font-size:14px;font-weight:500;">Aadi + 2 others</div><div style="font-size:11px;color:var(--muted);">Community members</div></div>
+      </div>
+    </div>
+
+    <button class="btn btn-green" onclick="goOutside()">I'm heading out 🏃</button>
+    <button class="btn btn-outline" style="margin-top:10px;" onclick="showTab('home')">Maybe later</button>
+  </div>
+</div>
+
+<!-- ═══════════ DISCOVER ═══════════ -->
 <div class="screen" id="s-discover">
   <div>
     <div class="nav-bar"><h2 style="margin-bottom:0;">Discover</h2><span style="display:flex;align-items:center;gap:5px;font-size:12px;color:var(--green);"><span class="live-dot"></span>3 active</span></div>
-    <div class="field" style="margin-bottom:16px;"><input type="text" placeholder="Search sport or location…"/></div>
-    <div class="chips" style="margin-bottom:16px;">
+    <div class="field" style="margin-bottom:14px;"><input type="text" placeholder="Search sport or location…"/></div>
+    <div class="chips" style="margin-bottom:14px;">
       <div class="chip on" onclick="filterSport(this)">All</div>
       <div class="chip" onclick="filterSport(this)">⚽ Football</div>
       <div class="chip" onclick="filterSport(this)">🏏 Cricket</div>
       <div class="chip" onclick="filterSport(this)">🏀 Basketball</div>
     </div>
+    <div class="live-ticker" style="margin-bottom:14px;">
+      <span class="ticker-dot"></span>
+      <span class="ticker-text"><strong>Aadi</strong> just created a Cricket game · 4 spots open</span>
+    </div>
     <div class="sec-label">3 games near you</div>
-    <div class="game-card" onclick="joinGame('Cricket','Block C Ground','Rohan')">
-      <div class="gc-top"><div><div class="gc-sport">🏏 Cricket</div><div class="gc-meta"><span class="gc-tag">📍 Block C Ground</span><span class="gc-tag">🕐 Now</span></div></div><span class="badge badge-green"><span class="live-dot" style="width:5px;height:5px;"></span> Live</span></div>
-      <div style="display:flex;align-items:center;justify-content:space-between;"><div style="display:flex;align-items:center;gap:6px;"><div style="display:flex;"><div class="player-pip">👦</div><div class="player-pip">👧</div><div class="player-pip">🧒</div><div class="player-pip">🧑</div></div><span style="font-size:12px;color:var(--muted);">4/11 players</span></div><span class="verified">🛡 Verified</span></div>
+    <div class="game-card featured" onclick="joinGame('Cricket','Block C Ground','Rohan')">
+      <div class="gc-top"><div><div class="gc-sport">🏏 Cricket</div><div class="gc-meta"><span class="gc-tag">📍 Block C</span><span class="gc-tag">🕐 Now</span></div></div><span class="badge badge-green"><span class="live-dot" style="width:5px;height:5px;"></span> Live</span></div>
+      <div style="display:flex;align-items:center;justify-content:space-between;">
+        <div style="display:flex;align-items:center;gap:6px;"><div style="display:flex;"><div class="player-pip">👦</div><div class="player-pip">👧</div><div class="player-pip">🧒</div><div class="player-pip">🧑</div></div><span style="font-size:12px;color:var(--muted);">4/11</span></div>
+        <div style="display:flex;gap:6px;"><span class="played-together">2 familiar</span><span class="verified">🛡</span></div>
+      </div>
     </div>
     <div class="game-card" onclick="joinGame('Football','Main Ground','Aryan')">
       <div class="gc-top"><div><div class="gc-sport">⚽ Football</div><div class="gc-meta"><span class="gc-tag">📍 Main Ground</span><span class="gc-tag">🕐 4:30 PM</span></div></div><span class="badge badge-green"><span class="live-dot" style="width:5px;height:5px;"></span> Live</span></div>
-      <div style="display:flex;align-items:center;justify-content:space-between;"><div style="display:flex;align-items:center;gap:6px;"><div style="display:flex;"><div class="player-pip">👦</div><div class="player-pip">👧</div><div class="player-pip">🧒</div></div><span style="font-size:12px;color:var(--muted);">5/10 players</span></div><span class="verified">🛡 Verified</span></div>
+      <div style="display:flex;align-items:center;justify-content:space-between;"><div style="display:flex;align-items:center;gap:6px;"><div style="display:flex;"><div class="player-pip">👦</div><div class="player-pip">👧</div><div class="player-pip">🧒</div></div><span style="font-size:12px;color:var(--muted);">5/10</span></div><span class="verified">🛡 Verified</span></div>
     </div>
     <div class="game-card" onclick="joinGame('Basketball','Court A','Priya')">
       <div class="gc-top"><div><div class="gc-sport">🏀 Basketball</div><div class="gc-meta"><span class="gc-tag">📍 Court A</span><span class="gc-tag">🕐 5:00 PM</span></div></div><span class="badge badge-blue">Starting soon</span></div>
-      <div style="display:flex;align-items:center;justify-content:space-between;"><div style="display:flex;align-items:center;gap:6px;"><div style="display:flex;"><div class="player-pip">🧑</div><div class="player-pip">👦</div></div><span style="font-size:12px;color:var(--muted);">2/6 players</span></div><span class="verified">🛡 Verified</span></div>
+      <div style="display:flex;align-items:center;justify-content:space-between;"><div style="display:flex;align-items:center;gap:6px;"><div style="display:flex;"><div class="player-pip">🧑</div><div class="player-pip">👦</div></div><span style="font-size:12px;color:var(--muted);">2/6</span></div><span class="verified">🛡 Verified</span></div>
     </div>
     <div class="tab-bar">
       <div class="tab" id="t2-home" onclick="showTab('home')"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>Home</span></div>
@@ -413,7 +564,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
   </div>
 </div>
 
-<!-- CREATE -->
+<!-- ═══════════ CREATE ═══════════ -->
 <div class="screen" id="s-create">
   <div>
     <div class="nav-bar"><h2 style="margin-bottom:0;">New Game</h2></div>
@@ -452,20 +603,81 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
   </div>
 </div>
 
-<!-- JOINED CONFIRM -->
+<!-- ═══════════ JOINED CONFIRM ═══════════ -->
 <div class="screen" id="s-joined">
   <div style="min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:20px 0;">
     <span class="confirm-icon" id="joined-icon">🎉</span>
     <div class="eyebrow" style="text-align:center;">You're in!</div>
     <h1 style="text-align:center;font-size:44px;">GO<br>PLAY.</h1>
-    <p class="sub" style="text-align:center;margin:12px 0 28px;" id="joined-sub">Head to the ground. Your crew is waiting.</p>
-    <div class="card" id="joined-card" style="margin-bottom:20px;"></div>
-    <button class="btn btn-primary" style="margin-bottom:12px;" onclick="goOutside()">I'm heading out 🏃</button>
-    <button class="btn btn-outline" onclick="showTab('home')">Back to home</button>
+    <p class="sub" style="text-align:center;margin:12px 0 24px;" id="joined-sub">Head to the ground. Your crew is waiting.</p>
+    <div class="card" id="joined-card" style="margin-bottom:16px;"></div>
+    <div class="unlock-hint" id="unlock-hint">
+      <span class="uicon">🔓</span>
+      <div class="utext"><strong>Show up = unlock more</strong>Reliable players get priority in full games</div>
+    </div>
+    <button class="btn btn-green" style="margin-bottom:10px;" onclick="showPreGame()">See pre-game info →</button>
+    <button class="btn btn-outline" onclick="goOutside()">I'm heading out now 🏃</button>
   </div>
 </div>
 
-<!-- PROFILE -->
+<!-- ═══════════ FEEDBACK ═══════════ -->
+<div class="screen" id="s-feedback">
+  <div style="padding-top:40px;">
+    <div class="eyebrow">Post-game</div>
+    <h1 style="font-size:44px;">HOW<br>WAS IT?</h1>
+    <p class="sub" style="margin-top:8px;margin-bottom:4px;">Quick tags for your teammates. Takes 5 seconds.</p>
+    <div style="font-size:12px;color:var(--muted);margin-bottom:20px;">This builds everyone's reputation.</div>
+    <div class="tag-grid">
+      <div class="ftag" onclick="toggleFtag(this)"><div class="ftag-icon">✅</div><div class="ftag-label">Reliable</div><div class="ftag-sub">Showed up on time</div></div>
+      <div class="ftag" onclick="toggleFtag(this)"><div class="ftag-icon">🤝</div><div class="ftag-label">Team player</div><div class="ftag-sub">Good sportsmanship</div></div>
+      <div class="ftag" onclick="toggleFtag(this)"><div class="ftag-icon">⚡</div><div class="ftag-label">High energy</div><div class="ftag-sub">Made it fun</div></div>
+      <div class="ftag" onclick="toggleFtag(this)"><div class="ftag-icon">😄</div><div class="ftag-label">Good vibes</div><div class="ftag-sub">Positive attitude</div></div>
+    </div>
+    <button class="btn btn-primary" onclick="submitFeedback()">Send feedback →</button>
+    <button class="btn btn-outline" style="margin-top:10px;" onclick="go('s-postgame')">Skip</button>
+  </div>
+</div>
+
+<!-- ═══════════ POST GAME ═══════════ -->
+<div class="screen" id="s-postgame">
+  <div style="min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:20px 0;">
+    <span class="confirm-icon">🏆</span>
+    <div class="eyebrow" style="text-align:center;">Session complete</div>
+    <h1 style="text-align:center;font-size:44px;">GOOD<br>GAME.</h1>
+    <p class="sub" style="text-align:center;margin:12px 0 20px;">You played outside today. That's a win.</p>
+    <div class="stats-row" style="margin-bottom:14px;">
+      <div class="stat-box"><div class="stat-num" style="color:var(--green);" id="pg-streak">6</div><div class="stat-lbl">Streak</div></div>
+      <div class="stat-box"><div class="stat-num" id="pg-games">13</div><div class="stat-lbl">Total</div></div>
+      <div class="stat-box"><div class="stat-num" style="color:var(--yellow);">+10</div><div class="stat-lbl">XP</div></div>
+    </div>
+
+    <!-- REP EARNED -->
+    <div class="card" style="margin-bottom:12px;">
+      <div style="font-size:12px;color:var(--muted);margin-bottom:8px;letter-spacing:1px;text-transform:uppercase;">Reputation earned</div>
+      <div class="rep-tags" id="pg-rep-tags">
+        <span class="rep-tag earned">✅ Reliable</span>
+        <span class="rep-tag earned">🤝 Team player</span>
+      </div>
+      <div style="font-size:12px;color:var(--muted);margin-top:10px;" id="pg-streak2">🔥 6-day streak — keep it going!</div>
+    </div>
+
+    <!-- ENERGY UPDATE -->
+    <div class="energy-block" style="margin-bottom:12px;">
+      <div class="energy-top"><span class="energy-label">Momentum</span><span class="energy-level" style="color:var(--orange);">Rising 🔥</span></div>
+      <div class="energy-track"><div class="energy-fill" style="width:80%;background:var(--orange);"></div></div>
+      <div style="font-size:11px;color:var(--muted);margin-top:8px;">Up from 60% — play tomorrow to hit max</div>
+    </div>
+
+    <div class="sec-label">Play tomorrow</div>
+    <div class="game-card" onclick="joinGame('Football','Main Ground','Aryan')">
+      <div class="gc-sport">⚽ Football tomorrow · 4:30 PM</div>
+      <div class="gc-meta" style="margin-top:6px;"><span class="gc-tag">📍 Main Ground</span><span class="gc-tag">👥 3 going</span></div>
+    </div>
+    <button class="btn btn-primary" style="margin-top:16px;" onclick="showTab('home')">Back to home</button>
+  </div>
+</div>
+
+<!-- ═══════════ PROFILE ═══════════ -->
 <div class="screen" id="s-profile">
   <div>
     <div class="nav-bar"><h2 style="margin-bottom:0;">Profile</h2><button class="btn-sm btn-outline" onclick="logout()" style="font-size:12px;padding:7px 14px;border:1px solid var(--border2);color:var(--text);background:transparent;">Sign out</button></div>
@@ -479,17 +691,45 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
         <span class="badge badge-yellow">⭐ Early member</span>
       </div>
     </div>
+
+    <!-- ENERGY ON PROFILE -->
+    <div class="energy-block" style="margin-bottom:16px;">
+      <div class="energy-top"><span class="energy-label">Momentum</span><span class="energy-level" id="prof-energy-lbl" style="color:var(--green);">Building 🔥</span></div>
+      <div class="energy-track"><div class="energy-fill" id="prof-energy-fill" style="width:60%;background:var(--green);"></div></div>
+      <div style="font-size:11px;color:var(--muted);margin-top:8px;">Based on your activity this week</div>
+    </div>
+
     <div class="stats-row">
       <div class="stat-box"><div class="stat-num" id="p-games">12</div><div class="stat-lbl">Games</div></div>
       <div class="stat-box"><div class="stat-num" style="color:var(--green);" id="p-streak">5</div><div class="stat-lbl">Streak</div></div>
       <div class="stat-box"><div class="stat-num" style="color:var(--yellow);">3</div><div class="stat-lbl">Badges</div></div>
     </div>
-    <div class="sec-label" style="margin-top:8px;">Interests</div>
+
+    <!-- REPUTATION -->
+    <div class="sec-label" style="margin-top:8px;">Reputation</div>
+    <div class="card" style="margin-bottom:16px;">
+      <div style="font-size:12px;color:var(--muted);margin-bottom:10px;">How your community sees you</div>
+      <div class="rep-tags" id="prof-rep-tags">
+        <span class="rep-tag earned">✅ Reliable</span>
+        <span class="rep-tag earned">🤝 Team player</span>
+        <span class="rep-tag earned">⚡ High energy</span>
+        <span class="rep-tag">😄 Good vibes</span>
+        <span class="rep-tag">🌟 Leader</span>
+      </div>
+      <div class="unlock-hint" style="margin-top:12px;margin-bottom:0;">
+        <span class="uicon">🔓</span>
+        <div class="utext"><strong>2 more games to unlock Priority Join</strong>Shows up higher in full games</div>
+      </div>
+    </div>
+
+    <div class="sec-label">Interests</div>
     <div class="chips" id="prof-interests" style="margin-bottom:20px;pointer-events:none;"></div>
+
     <div class="sec-label">Recent activity</div>
     <div class="notif"><div class="notif-icon">⚽</div><div class="notif-text"><strong>Played Football</strong><span>Yesterday · Main Ground</span></div><span class="badge badge-yellow">+10 XP</span></div>
     <div class="notif"><div class="notif-icon">🏏</div><div class="notif-text"><strong>Played Cricket</strong><span>2 days ago · Block C</span></div><span class="badge badge-yellow">+10 XP</span></div>
     <div class="notif"><div class="notif-icon">🏅</div><div class="notif-text"><strong>Badge: First Game</strong><span>3 days ago</span></div><span class="badge badge-green">New</span></div>
+
     <div class="tab-bar">
       <div class="tab" id="t4-home" onclick="showTab('home')"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>Home</span></div>
       <div class="tab" id="t4-disc" onclick="showTab('discover')"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><span>Discover</span></div>
@@ -499,184 +739,253 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
   </div>
 </div>
 
-<!-- POST GAME -->
-<div class="screen" id="s-postgame">
-  <div style="min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:20px 0;">
-    <span class="confirm-icon">🏆</span>
-    <div class="eyebrow" style="text-align:center;">Session complete</div>
-    <h1 style="text-align:center;font-size:44px;">GOOD<br>GAME.</h1>
-    <p class="sub" style="text-align:center;margin:12px 0 24px;">You played outside today. That's a win.</p>
-    <div class="stats-row" style="margin-bottom:16px;">
-      <div class="stat-box"><div class="stat-num" style="color:var(--green);" id="pg-streak">6</div><div class="stat-lbl">Streak</div></div>
-      <div class="stat-box"><div class="stat-num" id="pg-games">13</div><div class="stat-lbl">Total</div></div>
-      <div class="stat-box"><div class="stat-num" style="color:var(--yellow);">+10</div><div class="stat-lbl">XP</div></div>
-    </div>
-    <div class="card" style="margin-bottom:16px;">
-      <div class="card-row" style="margin-bottom:6px;"><span style="font-size:14px;font-weight:500;">🔥 Streak extended!</span><span class="badge badge-green">Nice</span></div>
-      <div style="font-size:13px;color:var(--muted);">You're on a <strong style="color:var(--text);" id="pg-streak2">6</strong>-day streak. Keep it going tomorrow!</div>
-    </div>
-    <div class="sec-label">Play tomorrow</div>
-    <div class="game-card" onclick="joinGame('Football','Main Ground','Aryan')">
-      <div class="gc-sport">⚽ Football tomorrow · 4:30 PM</div>
-      <div class="gc-meta" style="margin-top:6px;"><span class="gc-tag">📍 Main Ground</span><span class="gc-tag">👥 3 going</span></div>
-    </div>
-    <button class="btn btn-primary" style="margin-top:16px;" onclick="showTab('home')">Back to home</button>
-  </div>
-</div>
-
 <script>
-const S = { screen: 's-land', user: null, streak: 5, games: 12, sport: 'Football' };
+const S = {
+  screen:'s-land', user:null, streak:5, games:12, sport:'Football',
+  energy:60, rep:['✅ Reliable','🤝 Team player','⚡ High energy'],
+  countdownSecs: 720, countdownTimer: null, focusMode: false,
+  currentGame: null
+};
 let accounts = {};
-try { accounts = JSON.parse(localStorage.getItem('pv-accounts') || '{}'); } catch(e) {}
+try { accounts = JSON.parse(localStorage.getItem('pv-accounts')||'{}'); } catch(e){}
 
+// ── NAVIGATION ──
 function go(id) {
   document.getElementById(S.screen).classList.remove('active');
   document.getElementById(id).classList.add('active');
   S.screen = id;
   window.scrollTo({top:0,behavior:'smooth'});
 }
-
 function showTab(tab) {
   const map = {home:'s-home',discover:'s-discover',create:'s-create',profile:'s-profile'};
   go(map[tab]);
-  // update all tab bars
   const tabs = {home:['t1-home','t2-home','t3-home','t4-home'],discover:['t1-disc','t2-disc','t3-disc','t4-disc'],create:['t1-cre','t2-cre','t3-cre','t4-cre'],profile:['t1-prof','t2-prof','t3-prof','t4-prof']};
-  Object.keys(tabs).forEach(t => {
-    tabs[t].forEach(id => { const el=document.getElementById(id); if(el) el.classList.toggle('on', t===tab); });
-  });
+  Object.keys(tabs).forEach(t => tabs[t].forEach(id => { const el=document.getElementById(id); if(el) el.classList.toggle('on',t===tab); }));
 }
 
+// ── AUTH ──
 function doLogin() {
   const user = document.getElementById('li-user').value.trim();
   const pass = document.getElementById('li-pass').value.trim();
   const err = document.getElementById('li-err');
   const found = accounts[user];
-  if ((found && found.pass === pass) || (user === 'demo' && pass === '1234')) {
+  if ((found && found.pass===pass)||(user==='demo'&&pass==='1234')) {
     err.classList.remove('show');
-    S.user = found || {name:'Demo',username:'demo',school:'Demo School',age:12,avatar:'🧒',interests:['⚽ Football','🏏 Cricket']};
+    S.user = found||{name:'Demo',username:'demo',school:'Demo School',age:12,avatar:'🧒',interests:['⚽ Football','🏏 Cricket']};
     enterApp();
-  } else {
-    err.classList.add('show');
-  }
+  } else { err.classList.add('show'); }
 }
-
 function suStep1() {
   const n = document.getElementById('su-name').value.trim();
-  if (!n) { document.getElementById('su-err1').classList.add('show'); return; }
+  if (!n){document.getElementById('su-err1').classList.add('show');return;}
   document.getElementById('su-err1').classList.remove('show');
   go('s-signup-age');
 }
-
 function suStep3() {
   const chips = document.querySelectorAll('#interest-chips .chip.on');
-  if (!chips.length) { document.getElementById('su-err3').classList.add('show'); return; }
+  if (!chips.length){document.getElementById('su-err3').classList.add('show');return;}
   document.getElementById('su-err3').classList.remove('show');
   go('s-signup-parent');
 }
-
 function sendOTP() {
   const ph = document.getElementById('parent-phone').value.trim();
   if (!ph) return;
-  document.getElementById('otp-row').style.display = 'flex';
-  document.getElementById('otp-hint').style.display = 'block';
-  document.getElementById('otp-btn').style.display = 'block';
+  document.getElementById('otp-row').style.display='flex';
+  document.getElementById('otp-hint').style.display='block';
+  document.getElementById('otp-btn').style.display='block';
   document.getElementById('otp-row').querySelectorAll('input')[0].focus();
 }
-
-function otpMove(el, idx) {
-  if (el.value.length === 1) {
-    const ins = document.getElementById('otp-row').querySelectorAll('input');
-    if (idx < 3) ins[idx+1].focus();
-  }
+function otpMove(el,idx) {
+  if(el.value.length===1){ const ins=document.getElementById('otp-row').querySelectorAll('input'); if(idx<3) ins[idx+1].focus(); }
 }
-
 function confirmOTP() {
   const code = [...document.getElementById('otp-row').querySelectorAll('input')].map(i=>i.value).join('');
-  if (code === '2580') {
+  if(code==='2580'){
     document.getElementById('su-err4').classList.remove('show');
     const name = document.getElementById('su-name').value.trim();
-    const uname = document.getElementById('su-user').value.trim() || name.toLowerCase().replace(/ /g,'_')+'_plays';
-    const school = document.getElementById('su-school').value.trim() || 'Unknown School';
+    const uname = document.getElementById('su-user').value.trim()||(name.toLowerCase().replace(/ /g,'_')+'_plays');
+    const school = document.getElementById('su-school').value.trim()||'Unknown School';
     const age = document.getElementById('age-slider').value;
     const interests = [...document.querySelectorAll('#interest-chips .chip.on')].map(c=>c.textContent);
-    const avs = ['🧒','👦','👧','🧑','🦸','🤖'];
-    const avatar = avs[Math.floor(Math.random()*avs.length)];
-    S.user = {name,username:uname,school,age,avatar,interests,pass:'1234'};
-    accounts[uname] = S.user;
-    try { localStorage.setItem('pv-accounts', JSON.stringify(accounts)); } catch(e) {}
+    const avs=['🧒','👦','👧','🧑','🦸','🤖'];
+    S.user = {name,username:uname,school,age,avatar:avs[Math.floor(Math.random()*avs.length)],interests,pass:'1234'};
+    accounts[uname]=S.user;
+    try{localStorage.setItem('pv-accounts',JSON.stringify(accounts));}catch(e){}
     enterApp();
-  } else {
-    document.getElementById('su-err4').classList.add('show');
+  } else { document.getElementById('su-err4').classList.add('show'); }
+}
+function enterApp() {
+  const u=S.user;
+  const h=new Date().getHours();
+  const greet = h<12?'Good morning,':h<17?'Good afternoon,':'Good evening,';
+  document.getElementById('home-greeting').textContent=greet;
+  document.getElementById('home-name').textContent=u.name+' 👋';
+  document.getElementById('nav-av').textContent=u.avatar;
+  document.getElementById('prof-av').textContent=u.avatar;
+  document.getElementById('prof-name').textContent=u.name;
+  document.getElementById('prof-handle').textContent=`@${u.username} · ${u.school}`;
+  const ic=document.getElementById('prof-interests');
+  ic.innerHTML=(u.interests||[]).map(i=>`<div class="chip on">${i}</div>`).join('');
+  updateStats();
+  renderEnergy();
+  startTicker();
+  showTab('home');
+}
+function logout(){S.user=null;go('s-land');}
+
+// ── STATS ──
+function updateStats() {
+  ['h-streak','p-streak'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=S.streak;});
+  ['h-games','p-games'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=S.games;});
+  const pb=document.getElementById('prof-streak-badge');
+  if(pb) pb.textContent=`🔥 ${S.streak} day streak`;
+}
+
+// ── ENERGY / MOMENTUM ──
+function renderEnergy() {
+  const e=S.energy;
+  const fill=document.getElementById('energy-fill');
+  const lbl=document.getElementById('energy-label-text');
+  const hint=document.getElementById('energy-hint');
+  const segs=document.getElementById('energy-segs');
+  const pfill=document.getElementById('prof-energy-fill');
+  const plbl=document.getElementById('prof-energy-lbl');
+  let color,label,hintText;
+  if(e<30){color='var(--muted2)';label='Cooling down';hintText='Play today to get back on track';}
+  else if(e<60){color='var(--blue)';label='Warming up';hintText='Play today to build momentum';}
+  else if(e<80){color='var(--green)';label='Building 🔥';hintText='Play today to keep your streak going';}
+  else{color='var(--orange)';label='On fire 🔥🔥';hintText='You\'re on a roll — keep it up!';}
+  if(fill){fill.style.width=e+'%';fill.style.background=color;}
+  if(pfill){pfill.style.width=e+'%';pfill.style.background=color;}
+  if(lbl){lbl.textContent=label;lbl.style.color=color;}
+  if(plbl){plbl.textContent=label;plbl.style.color=color;}
+  if(hint) hint.textContent=hintText;
+  if(segs){
+    segs.innerHTML='';
+    for(let i=0;i<7;i++){
+      const s=document.createElement('div');
+      s.className='energy-seg';
+      if(i<Math.round(e/14.3)){
+        s.classList.add('lit');
+        if(e>=80) s.classList.add('hot');
+        else if(e>=60) s.classList.add('warm');
+      }
+      segs.appendChild(s);
+    }
   }
 }
 
-function enterApp() {
-  const u = S.user;
-  document.getElementById('home-name').textContent = u.name + ' 👋';
-  document.getElementById('nav-av').textContent = u.avatar;
-  document.getElementById('prof-av').textContent = u.avatar;
-  document.getElementById('prof-name').textContent = u.name;
-  document.getElementById('prof-handle').textContent = `@${u.username} · ${u.school}`;
-  updateStats();
-  const ic = document.getElementById('prof-interests');
-  ic.innerHTML = (u.interests||[]).map(i=>`<div class="chip on">${i}</div>`).join('');
-  showTab('home');
+// ── LIVE TICKER ──
+const tickerMsgs = [
+  '<strong>Rohan</strong> just joined a Cricket game · Block C',
+  '<strong>Priya</strong> created a Basketball game · Court A',
+  '<strong>Aadi</strong> is heading out now · 3 spots open',
+  'A Cricket game is starting in <strong>5 min</strong>',
+  '<strong>3 games</strong> happening near you right now',
+  '<strong>Aryan</strong> just earned Reliable badge',
+];
+let tickerIdx=0;
+function startTicker(){
+  setInterval(()=>{
+    tickerIdx=(tickerIdx+1)%tickerMsgs.length;
+    const el=document.getElementById('ticker-msg');
+    if(el){el.style.opacity=0;setTimeout(()=>{el.innerHTML=tickerMsgs[tickerIdx];el.style.opacity=1;},300);}
+  },4000);
+  const el=document.getElementById('ticker-msg');
+  if(el) el.style.transition='opacity 0.3s';
 }
 
-function updateStats() {
-  ['h-streak','p-streak'].forEach(id=>{ const el=document.getElementById(id); if(el) el.textContent=S.streak; });
-  ['h-games','p-games'].forEach(id=>{ const el=document.getElementById(id); if(el) el.textContent=S.games; });
-  const pb = document.getElementById('prof-streak-badge');
-  if (pb) pb.textContent = `🔥 ${S.streak} day streak`;
-}
-
-function logout() { S.user=null; go('s-land'); }
-
+// ── GAME ACTIONS ──
 function joinGame(sport, loc, host) {
-  const icons = {Football:'⚽',Cricket:'🏏',Basketball:'🏀',Cycling:'🚴',Skating:'🛹',Swimming:'🏊'};
-  document.getElementById('joined-icon').textContent = icons[sport]||'🎮';
-  document.getElementById('joined-sub').textContent = `Head to ${loc}. Your crew is waiting.`;
-  document.getElementById('joined-card').innerHTML = `
+  const icons={Football:'⚽',Cricket:'🏏',Basketball:'🏀',Cycling:'🚴',Skating:'🛹',Swimming:'🏊'};
+  S.currentGame={sport,loc,host};
+  document.getElementById('joined-icon').textContent=icons[sport]||'🎮';
+  document.getElementById('joined-sub').textContent=`Head to ${loc}. Your crew is waiting.`;
+  document.getElementById('joined-card').innerHTML=`
     <div class="card-row" style="margin-bottom:8px;">
       <div><div style="font-family:'Syne',sans-serif;font-size:16px;font-weight:700;">${icons[sport]||'🎮'} ${sport}</div><div style="font-size:13px;color:var(--muted);margin-top:3px;">📍 ${loc} · Hosted by ${host}</div></div>
       <span class="badge badge-green"><span class="live-dot" style="width:5px;height:5px;"></span> Joined</span>
     </div>
-    <div style="font-size:12px;color:var(--muted);">🛡 Verified · Parent notified</div>
+    <div style="font-size:12px;color:var(--muted);">🛡 Verified · 🔔 Parent notified</div>
   `;
   go('s-joined');
 }
 
-function goOutside() {
-  S.streak++; S.games++;
-  document.getElementById('pg-streak').textContent = S.streak;
-  document.getElementById('pg-streak2').textContent = S.streak;
-  document.getElementById('pg-games').textContent = S.games;
+function quickJoin(){
+  joinGame('Football','Main Ground','Aryan');
+}
+
+function showPreGame(){
+  if(S.currentGame){
+    const icons={Football:'⚽',Cricket:'🏏',Basketball:'🏀',Cycling:'🚴',Skating:'🛹',Swimming:'🏊'};
+    const {sport,loc}=S.currentGame;
+    document.getElementById('pg-eyebrow').textContent=`You're joining`;
+    document.getElementById('pg-title').textContent=sport.toUpperCase();
+    document.getElementById('pg-loc-text').textContent=`📍 ${loc} · 5 players ready`;
+    startCountdown();
+  }
+  go('s-pregame');
+}
+
+// ── COUNTDOWN ──
+function startCountdown(){
+  if(S.countdownTimer) clearInterval(S.countdownTimer);
+  S.countdownSecs=720;
+  updateCountdownDisplay();
+  S.countdownTimer=setInterval(()=>{
+    S.countdownSecs--;
+    if(S.countdownSecs<=0){clearInterval(S.countdownTimer);S.countdownSecs=0;}
+    updateCountdownDisplay();
+  },1000);
+}
+function updateCountdownDisplay(){
+  const m=Math.floor(S.countdownSecs/60);
+  const s=S.countdownSecs%60;
+  const el=document.getElementById('countdown-display');
+  if(el) el.textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+  if(S.countdownSecs<=120&&el) el.style.color='var(--orange)';
+  else if(el) el.style.color='var(--green)';
+}
+function toggleFocus(btn){
+  btn.classList.toggle('on');
+  S.focusMode=btn.classList.contains('on');
+}
+
+// ── POST GAME ──
+function goOutside(){
+  if(S.countdownTimer) clearInterval(S.countdownTimer);
+  S.streak++;S.games++;
+  S.energy=Math.min(100,S.energy+20);
+  document.getElementById('pg-streak').textContent=S.streak;
+  document.getElementById('pg-streak2').textContent=`🔥 ${S.streak}-day streak — keep it going!`;
+  document.getElementById('pg-games').textContent=S.games;
   updateStats();
+  renderEnergy();
+  go('s-feedback');
+}
+
+// ── FEEDBACK ──
+function toggleFtag(el){el.classList.toggle('on');}
+function submitFeedback(){
+  const selected=[...document.querySelectorAll('.ftag.on')].map(f=>f.querySelector('.ftag-label').textContent);
+  if(selected.length){
+    const tags=document.getElementById('pg-rep-tags');
+    if(tags) tags.innerHTML=selected.map(t=>`<span class="rep-tag earned">${t}</span>`).join('');
+  }
   go('s-postgame');
 }
 
-function publishGame() {
-  const loc = document.getElementById('create-loc').value.trim() || 'Main Ground';
-  joinGame(S.sport, loc, S.user?.name || 'You');
+// ── PUBLISH GAME ──
+function publishGame(){
+  const loc=document.getElementById('create-loc').value.trim()||'Main Ground';
+  joinGame(S.sport,loc,S.user?.name||'You');
 }
 
-function toggleChip(el) { el.classList.toggle('on'); }
-
-function pickSport(el, sport) {
-  document.querySelectorAll('.sport-opt').forEach(s=>s.classList.remove('on'));
-  el.classList.add('on');
-  S.sport = sport;
-}
-
-function pickTime(el) {
-  document.querySelectorAll('.time-chip').forEach(t=>t.classList.remove('on'));
-  el.classList.add('on');
-}
-
-function filterSport(el) {
-  document.querySelectorAll('#s-discover .chip').forEach(c=>c.classList.remove('on'));
-  el.classList.add('on');
-}
+// ── UI HELPERS ──
+function toggleChip(el){el.classList.toggle('on');}
+function pickSport(el,sport){document.querySelectorAll('.sport-opt').forEach(s=>s.classList.remove('on'));el.classList.add('on');S.sport=sport;}
+function pickTime(el){document.querySelectorAll('.time-chip').forEach(t=>t.classList.remove('on'));el.classList.add('on');}
+function filterSport(el){document.querySelectorAll('#s-discover .chip').forEach(c=>c.classList.remove('on'));el.classList.add('on');}
 </script>
 </body>
 </html>
